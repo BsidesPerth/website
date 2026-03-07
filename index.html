@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSides Perth 2026 — Western Australia's Premier Cybersecurity Conference</title>
+  <meta name="description" content="BSides Perth is Western Australia's biggest and brightest cybersecurity conference. Join us 10–11 October 2026 at UWA Business School, Crawley.">
+  <meta name="keywords" content="BSides Perth, cybersecurity, infosec, conference, Perth, Western Australia, 2026">
+
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS
+       ============================================= */
+    :root {
+      --black:         #0D0D0D;
+      --black-soft:    #1A1A1A;
+      --yellow:        #FFD600;
+      --yellow-dark:   #E6C200;
+      --yellow-light:  #FFFCE6;
+      --white:         #FFFFFF;
+      --surface:       #F6F6F4;
+      --surface-2:     #EEEEEC;
+      --text-primary:  #0D0D0D;
+      --text-secondary:#555555;
+      --text-muted:    #909090;
+      --border:        #E2E2E0;
+      --border-dark:   #2C2C2C;
+
+      --header-height: 72px;
+      --section-v:     96px;
+      --container:     1160px;
+      --r:             4px;
+      --r-lg:          8px;
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--text-primary);
+      background: var(--white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a  { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Skip link (accessibility) */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 8px 16px;
+      font-weight: 700;
+      border-radius: var(--r);
+      z-index: 9999;
+      font-size: 0.875rem;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* Screen-reader only */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* =============================================
+       LAYOUT UTILITIES
+       ============================================= */
+    .wrap {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    section { padding: var(--section-v) 0; }
+
+    /* =============================================
+       HEADER
+       ============================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--black);
+      height: var(--header-height);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .site-logo img { height: 38px; width: auto; }
+
+    /* Nav */
+    .site-nav { display: flex; align-items: center; }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-list a {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-list a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--yellow) !important;
+      color: var(--black) !important;
+      padding: 9px 22px !important;
+      border-radius: var(--r) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.02em !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--yellow-dark) !important; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: none; border: none;
+      cursor: pointer; padding: 8px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 820px) {
+      .nav-toggle { display: flex; }
+
+      .site-nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0; right: 0; bottom: 0;
+        background: var(--black);
+        padding: 40px 28px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+        align-items: flex-start;
+      }
+      .site-nav.open { transform: translateX(0); }
+
+      .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0; width: 100%;
+      }
+      .nav-list li { width: 100%; border-bottom: 1px solid var(--border-dark); }
+      .nav-list a {
+        display: block;
+        padding: 18px 0;
+        font-size: 1.125rem;
+      }
+      .nav-cta {
+        margin-top: 24px;
+        display: inline-block;
+      }
+    }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    .hero {
+      background: var(--black);
+      min-height: calc(100svh - var(--header-height));
+      display: flex;
+      align-items: center;
+      padding: 80px 0 96px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle decorative rule at bottom of hero */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--yellow);
+    }
+
+    /* Faint background texture — large text watermark */
+    .hero-bg-text {
+      position: absolute;
+      right: -40px; bottom: -60px;
+      font-size: clamp(200px, 35vw, 420px);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--yellow);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 2px;
+      background: var(--yellow);
+    }
+
+    .hero-title {
+      font-size: clamp(3.25rem, 9vw, 6.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      margin-bottom: 12px;
+    }
+    .hero-title .accent { color: var(--yellow); }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.1875rem);
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      margin-bottom: 44px;
+      max-width: 540px;
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 52px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 11px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+    }
+    .hero-pill svg { color: var(--yellow); flex-shrink: 0; }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 15px 30px;
+      border-radius: var(--r);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--yellow);
+    }
+    .btn-primary:hover {
+      background: var(--yellow-dark);
+      border-color: var(--yellow-dark);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .btn-ghost:hover {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.45);
+    }
+
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-outline-dark:hover {
+      border-color: var(--yellow);
+      background: var(--yellow-light);
+    }
+
+    .btn-lg { font-size: 1.0625rem; padding: 18px 36px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* =============================================
+       INFO BAR
+       ============================================= */
+    .info-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-bar .wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .info-cell {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 32px 36px;
+      border-right: 1px solid var(--border);
+    }
+    .info-cell:last-child { border-right: none; }
+
+    .info-icon {
+      width: 48px; height: 48px;
+      background: var(--yellow);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon svg { width: 22px; height: 22px; color: var(--black); }
+
+    .info-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .info-sub {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 680px) {
+      .info-bar .wrap { grid-template-columns: 1fr; }
+      .info-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 22px 20px;
+      }
+      .info-cell:last-child { border-bottom: none; }
+    }
+
+    /* =============================================
+       SECTION HEADER PATTERN
+       ============================================= */
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--yellow-dark);
+      margin-bottom: 12px;
+    }
+    .section-kicker--light { color: var(--yellow); }
+
+    .section-title {
+      font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .section-title--light { color: var(--white); }
+
+    .section-lead {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 580px;
+      margin-bottom: 56px;
+    }
+    .section-lead--light { color: rgba(255,255,255,0.65); }
+
+    /* =============================================
+       TICKETS
+       ============================================= */
+    #tickets { background: var(--surface); }
+
+    .tickets-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    @media (max-width: 820px) {
+      .tickets-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .ticket-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 44px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    .ticket-header { margin-bottom: 32px; }
+
+    .ticket-price {
+      display: flex;
+      align-items: flex-start;
+      gap: 2px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .ticket-currency {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-top: 10px;
+    }
+    .ticket-amount {
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.04em;
+    }
+    .ticket-per {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      align-self: flex-end;
+      margin-bottom: 12px;
+      margin-left: 4px;
+    }
+
+    .ticket-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .ticket-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    .ticket-includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 36px;
+    }
+    .ticket-includes li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+    .ticket-includes .na {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .check {
+      width: 20px; height: 20px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check svg { width: 11px; height: 11px; color: var(--black); }
+
+    .cross {
+      width: 20px; height: 20px;
+      background: var(--surface-2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cross svg { width: 10px; height: 10px; color: var(--text-muted); }
+
+    .ticket-note {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 14px;
+    }
+    .ticket-note a {
+      color: var(--text-secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .ticket-note a:hover { color: var(--text-primary); }
+
+    .tickets-blurb { padding-top: 8px; }
+    .tickets-blurb h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .tickets-blurb p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    /* =============================================
+       ABOUT
+       ============================================= */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .about-body p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .principles {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 36px;
+    }
+
+    .principle {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .principle-icon {
+      width: 40px; height: 40px;
+      background: var(--yellow-light);
+      border: 1px solid rgba(230,194,0,0.25);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .principle-icon svg { width: 20px; height: 20px; color: var(--black); }
+
+    .principle-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .principle-body {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .about-aside { display: flex; flex-direction: column; gap: 16px; }
+
+    .logo-card {
+      background: var(--black);
+      border-radius: var(--r-lg);
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-card img { max-height: 130px; width: auto; }
+
+    .policy-links { display: flex; flex-direction: column; gap: 10px; }
+
+    .policy-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .policy-link:hover {
+      border-color: var(--yellow);
+      background: var(--yellow-light);
+    }
+    .policy-link-arrow {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .policy-link:hover .policy-link-arrow {
+      transform: translateX(4px);
+      color: var(--text-primary);
+    }
+
+    /* =============================================
+       SPONSORS — CURRENT
+       ============================================= */
+    #sponsors { background: var(--surface); }
+
+    .sponsor-tier { margin-bottom: 52px; }
+    .sponsor-tier:last-child { margin-bottom: 0; }
+
+    .tier-heading {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sponsor-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .sponsor-grid--gold   { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .sponsor-grid--silver { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+    .sponsor-grid--bronze { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+    .sponsor-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 28px;
+      aspect-ratio: 5 / 2;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .sponsor-card:hover {
+      border-color: #C8C8C6;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    }
+    .sponsor-card img {
+      max-width: 100%;
+      max-height: 64px;
+      object-fit: contain;
+      filter: grayscale(15%);
+      transition: filter 0.2s;
+    }
+    .sponsor-card:hover img { filter: none; }
+
+    .sponsor-note {
+      margin-top: 48px;
+      padding: 24px 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--r);
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+    .sponsor-note strong { color: var(--text-primary); }
+    .sponsor-note a {
+      color: var(--text-primary);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .sponsor-note a:hover { color: var(--black); }
+
+    /* =============================================
+       SPONSOR CTA (become a sponsor)
+       ============================================= */
+    #sponsor-us { background: var(--black); }
+
+    .sponsor-cta-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .sponsor-cta-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .sponsor-cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .site-footer {
+      background: #111111;
+      color: rgba(255,255,255,0.55);
+      padding: 72px 0 36px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+    @media (max-width: 820px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .footer-logo { margin-bottom: 20px; }
+    .footer-logo img { height: 34px; }
+
+    .footer-tagline {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+      max-width: 300px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--r);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .footer-social a:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    .footer-col-title {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.3);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- =============================================
+       HEADER
+       ============================================= -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="BSides Perth — home">
+        <img src="assets/img/bsides_white_trans.png" alt="BSides Perth">
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-controls="siteNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav">
+        <ul class="nav-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="#sponsors">Sponsors</a></li>
+          <li><a href="#sponsor-us">Sponsor Us</a></li>
+          <li><a href="https://events.humanitix.com/bsides-perth-2026" target="_blank" rel="noopener" class="nav-cta">Get Tickets</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- =============================================
+         HERO
+         ============================================= -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg-text" aria-hidden="true">2026</div>
+
+      <div class="wrap">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Perth, Western Australia &mdash; Cybersecurity Conference</p>
+
+          <h1 class="hero-title" id="hero-heading">
+            BSides<br>Perth<span class="accent">.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Western Australia's largest community-driven cybersecurity conference &mdash; where practitioners share knowledge, challenge ideas, and build community.
+          </p>
+
+          <div class="hero-meta">
+            <span class="hero-pill">
+              <!-- Calendar icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              10&ndash;11 October 2026
+            </span>
+            <span class="hero-pill">
+              <!-- Map pin icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              UWA Business School, Crawley WA
+            </span>
+          </div>
+
+          <div class="hero-actions">
+            <a href="https://events.humanitix.com/bsides-perth-2026" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+              Get Your Ticket
+              <!-- Arrow right icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#about" class="btn btn-ghost">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         INFO BAR
+         ============================================= -->
+    <div class="info-bar" role="complementary" aria-label="Event at a glance">
+      <div class="wrap">
+        <div class="info-cell">
+          <div class="info-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Date</p>
+            <p class="info-value">10&ndash;11 October 2026</p>
+            <p class="info-sub">Saturday &amp; Sunday</p>
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="info-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Venue</p>
+            <p class="info-value">UWA Business School</p>
+            <p class="info-sub">8716 Hackett Dr, Crawley WA 6009</p>
+          </div>
+        </div>
+
+        <div class="info-cell">
+          <div class="info-icon" aria-hidden="true">
+            <!-- Ticket icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="9" x2="9" y2="9.01"/><line x1="15" y1="9" x2="15" y2="9.01"/><line x1="9" y1="15" x2="9" y2="15.01"/><line x1="15" y1="15" x2="15" y2="15.01"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Admission</p>
+            <p class="info-value">$100 per person</p>
+            <p class="info-sub">Concessions available</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         TICKETS
+         ============================================= -->
+    <section id="tickets" aria-labelledby="tickets-heading">
+      <div class="wrap">
+        <div class="tickets-inner">
+
+          <div>
+            <p class="section-kicker">Tickets</p>
+            <h2 class="section-title" id="tickets-heading">Join Us in 2026</h2>
+            <p class="section-lead">Tickets are on sale now through Humanitix. All profits are returned to participants — we aim to keep ticket prices as low as possible.</p>
+
+            <div class="ticket-card">
+              <div class="ticket-header">
+                <div class="ticket-price">
+                  <span class="ticket-currency">$</span>
+                  <span class="ticket-amount">100</span>
+                  <span class="ticket-per">/ weekend</span>
+                </div>
+                <p class="ticket-name">BSides Perth Participant</p>
+              </div>
+
+              <hr class="ticket-divider">
+
+              <ul class="ticket-includes">
+                <li>
+                  <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+                  Full weekend conference attendance
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+                  Conference swag (t-shirt, badge, stickers)
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+                  Food &amp; drinks (TBC)
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+                  CTF competition access (TBC)
+                </li>
+                <li class="na">
+                  <span class="cross" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>
+                  No product-sales talks
+                </li>
+              </ul>
+
+              <a href="https://events.humanitix.com/bsides-perth-2026" target="_blank" rel="noopener" class="btn btn-primary btn-full">
+                Buy Tickets on Humanitix
+              </a>
+              <p class="ticket-note">
+                Concession pricing available &mdash; <a href="mailto:info@bsidesperth.com.au">contact us</a> for details.
+              </p>
+            </div>
+          </div>
+
+          <div class="tickets-blurb">
+            <h3>Why attend?</h3>
+            <p>
+              BSides Perth brings together security practitioners, researchers, students, and enthusiasts for two days of genuine knowledge sharing. Every dollar of sponsorship and ticket revenue is invested directly back into the event &mdash; into the venue, swag, food, and the community that makes it worthwhile.
+            </p>
+            <p>
+              Expect high-quality technical talks, hands-on workshops, a challenging CTF, and the chance to meet the people building and defending Australian security infrastructure.
+            </p>
+            <p>
+              Students and those from under-represented backgrounds are especially welcome. If cost is a barrier, reach out &mdash; we have options.
+            </p>
+            <br>
+            <a href="mailto:info@bsidesperth.com.au" class="btn btn-outline-dark">
+              <!-- Mail icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Contact Us About Concessions
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         ABOUT
+         ============================================= -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="wrap">
+        <div class="about-grid">
+
+          <div>
+            <p class="section-kicker">About</p>
+            <h2 class="section-title" id="about-heading">Built By the Community, For the Community</h2>
+
+            <div class="about-body">
+              <p>
+                Security BSides is a global series of community-driven information security conferences. Inspired by the BSides Manifesto, BSides Perth was founded to bring that same spirit of openness, accessibility, and genuine knowledge-sharing to Western Australia.
+              </p>
+              <p>
+                Since our inaugural event in 2017, we've hosted hundreds of speakers, thousands of attendees, and no shortage of memorable moments &mdash; all made possible by sponsors, volunteers, and a community that keeps showing up.
+              </p>
+            </div>
+
+            <div class="principles">
+              <div class="principle">
+                <div class="principle-icon" aria-hidden="true">
+                  <!-- People icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                  <p class="principle-title">Diverse, inclusive &amp; safe</p>
+                  <p class="principle-body">We actively work to make BSides Perth welcoming to everyone &mdash; regardless of background, experience level, or career stage.</p>
+                </div>
+              </div>
+
+              <div class="principle">
+                <div class="principle-icon" aria-hidden="true">
+                  <!-- Dollar sign icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div>
+                  <p class="principle-title">Every dollar goes back to participants</p>
+                  <p class="principle-body">All sponsorship income is reinvested into the event &mdash; the venue, food, swag, and experience. We run at cost.</p>
+                </div>
+              </div>
+
+              <div class="principle">
+                <div class="principle-icon" aria-hidden="true">
+                  <!-- Tag / price icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </div>
+                <div>
+                  <p class="principle-title">Tickets stay affordable</p>
+                  <p class="principle-body">We work hard to minimise ticket costs, with concession options available for students and those who need them.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-aside">
+            <div class="logo-card">
+              <img src="assets/img/bsides_white_trans.png" alt="BSides Perth logo">
+            </div>
+            <div class="policy-links">
+              <a href="code-of-conduct.html" class="policy-link">
+                Code of Conduct
+                <span class="policy-link-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+              <a href="privacy-policy.html" class="policy-link">
+                Privacy Policy
+                <span class="policy-link-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+              <a href="sponsorship.html" class="policy-link">
+                Sponsorship Information
+                <span class="policy-link-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CURRENT SPONSORS
+         ============================================= -->
+    <section id="sponsors" aria-labelledby="sponsors-heading">
+      <div class="wrap">
+        <p class="section-kicker">Thank You</p>
+        <h2 class="section-title" id="sponsors-heading">Our 2025 Sponsors</h2>
+        <p class="section-lead">These organisations made BSides Perth 2025 possible. Please take a moment to thank them.</p>
+
+        <div class="sponsor-tier">
+          <p class="tier-heading">Gold</p>
+          <div class="sponsor-grid sponsor-grid--gold">
+            <a href="#" class="sponsor-card" aria-label="P9 — Gold sponsor">
+              <img src="assets/img/portfolio/placeholder.png" alt="P9">
+            </a>
+          </div>
+        </div>
+
+        <div class="sponsor-tier">
+          <p class="tier-heading">Silver</p>
+          <div class="sponsor-grid sponsor-grid--silver">
+            <a href="https://www.uwa.edu.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="UWA — Silver sponsor">
+              <img src="assets/img/portfolio/sponsor-uwa.png" alt="The University of Western Australia">
+            </a>
+            <a href="https://www.infosectcbr.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="InfoSect — Silver sponsor">
+              <img src="assets/img/portfolio/sponsor-infosect.png" alt="InfoSect">
+            </a>
+            <a href="https://horizon3.ai/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Horizon3.ai — Silver sponsor">
+              <img src="assets/img/portfolio/H3-lowres.png" alt="Horizon3.ai">
+            </a>
+            <a href="https://sekuro.io/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Sekuro — Silver sponsor">
+              <img src="assets/img/portfolio/Sekuro.png" alt="Sekuro">
+            </a>
+          </div>
+        </div>
+
+        <div class="sponsor-tier">
+          <p class="tier-heading">Bronze</p>
+          <div class="sponsor-grid sponsor-grid--bronze">
+            <a href="https://mantelgroup.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Mantel Group — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-mantel.png" alt="Mantel Group">
+            </a>
+            <a href="https://www.trustwave.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Trustwave — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-trustwave.png" alt="Trustwave">
+            </a>
+            <a href="https://www.cyberwesthub.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Cyber West — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-cyber-west.png" alt="Cyber West Innovation Hub">
+            </a>
+            <a href="https://www.summon-cyber.pro/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Summon Cyber — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-summon.png" alt="Summon Cyber">
+            </a>
+            <a href="https://www.grcmastery.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="GRC Mastery — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-grc.png" alt="GRC Mastery">
+            </a>
+            <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Galah Cyber — Bronze sponsor">
+              <img src="assets/img/portfolio/sponsor-galah-blue.png" alt="Galah Cyber">
+            </a>
+          </div>
+        </div>
+
+        <div class="sponsor-note">
+          <strong>2026 sponsorship opportunities are open.</strong>
+          Email <a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a> to discuss how your organisation can partner with BSides Perth 2026.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =============================================
+         BECOME A SPONSOR
+         ============================================= -->
+    <section id="sponsor-us" aria-labelledby="sponsor-us-heading">
+      <div class="wrap">
+        <div class="sponsor-cta-grid">
+          <div>
+            <p class="section-kicker section-kicker--light">Sponsorship</p>
+            <h2 class="section-title section-title--light" id="sponsor-us-heading">Partner With BSides Perth</h2>
+            <p class="section-lead section-lead--light">
+              Sponsoring BSides Perth puts your brand in front of a highly engaged audience of security professionals, researchers, and students from across Australia and beyond. Every sponsor dollar is reinvested into participant experience &mdash; no wastage, no sales gimmicks.
+            </p>
+            <p class="section-lead section-lead--light" style="margin-bottom: 0;">
+              Packages range from Bronze through to Platinum, with additional opportunities to sponsor the CTF, coffee, after-party, and training sessions. We also offer co-branding and speaking opportunities for the right partners.
+            </p>
+          </div>
+          <div class="sponsor-cta-actions">
+            <a href="mailto:info@bsidesperth.com.au" class="btn btn-primary">
+              <!-- Mail icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Get in Touch
+            </a>
+            <a href="sponsorship.html" class="btn btn-ghost">
+              View Packages
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       FOOTER
+       ============================================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+
+        <div>
+          <div class="footer-logo">
+            <img src="assets/img/bsides_white_trans.png" alt="BSides Perth">
+          </div>
+          <p class="footer-tagline">
+            Western Australia's community-driven cybersecurity conference. Run by practitioners, for practitioners.
+          </p>
+          <div class="footer-social">
+            <a href="https://twitter.com/BSidesPer" target="_blank" rel="noopener" aria-label="BSides Perth on Twitter / X">TW</a>
+            <a href="https://www.linkedin.com/company/bsides-perth/" target="_blank" rel="noopener" aria-label="BSides Perth on LinkedIn">LI</a>
+            <a href="https://www.facebook.com/bsidesper/" target="_blank" rel="noopener" aria-label="BSides Perth on Facebook">FB</a>
+            <a href="https://www.youtube.com/BSidesPerth" target="_blank" rel="noopener" aria-label="BSides Perth on YouTube">YT</a>
+            <a href="https://github.com/BsidesPerth" target="_blank" rel="noopener" aria-label="BSides Perth on GitHub">GH</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Navigation</p>
+          <ul class="footer-links">
+            <li><a href="#tickets">Tickets</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="sponsorship.html">Become a Sponsor</a></li>
+            <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Contact</p>
+          <ul class="footer-links">
+            <li><a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a></li>
+            <li>UWA Business School</li>
+            <li>8716 Hackett Dr</li>
+            <li>Crawley WA 6009</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 BSides Perth. All rights reserved.</p>
+        <p>
+          <a href="code-of-conduct.html" style="color: rgba(255,255,255,0.4); transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Code of Conduct</a>
+          &nbsp;&middot;&nbsp;
+          <a href="code-of-conduct.html#privacy-policy" style="color: rgba(255,255,255,0.4); transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation toggle
+    const toggle = document.getElementById('navToggle');
+    const nav    = document.getElementById('siteNav');
+
+    toggle.addEventListener('click', function () {
+      const isOpen = nav.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen);
+      // Prevent body scroll when nav is open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close nav when a link is clicked
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+</body>
+</html>
