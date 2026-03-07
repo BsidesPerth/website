@@ -1357,11 +1357,9 @@
   </script>
 
   <script>
-    /* Humanitix ticket availability banner */
+    /* Ticket availability banner — reads ticket-status.json (updated by GitHub Actions) */
     (function () {
-      fetch('https://api.humanitix.com/v1/events/69731cb92608b884659944da', {
-        headers: { 'x-api-key': 'REDACTED' }
-      })
+      fetch('/ticket-status.json')
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (data) {
         var banner = document.getElementById('ticket-banner');
@@ -1381,7 +1379,7 @@
         }
         banner.style.display = '';
       })
-      .catch(function () { /* fail silently on CORS/network error */ });
+      .catch(function () {});
     })();
   </script>
 
