@@ -264,6 +264,36 @@
       background: var(--yellow);
     }
 
+    .hero-heritage {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .hero-heritage-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+    .hero-heritage-text { display: flex; flex-direction: column; gap: 4px; }
+    .hero-heritage-label {
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--yellow);
+    }
+    .hero-heritage-caption {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      max-width: 260px;
+    }
+    @media (max-width: 480px) {
+      .hero-heritage { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+
     .hero-title {
       font-size: clamp(3.25rem, 9vw, 6.5rem);
       font-weight: 800;
@@ -941,6 +971,14 @@
 
       <div class="wrap">
         <div class="hero-content">
+          <div class="hero-heritage">
+            <img src="BSides%20Perth%202017%20logo.png" alt="The original BSides Perth logo, 2017" class="hero-heritage-img">
+            <div class="hero-heritage-text">
+              <span class="hero-heritage-label">Est. 2017</span>
+              <p class="hero-heritage-caption">The original logo from our very first event &mdash; hand-drawn, full of character, and still beloved.</p>
+            </div>
+          </div>
+
           <p class="hero-eyebrow">Perth, Western Australia &mdash; Cybersecurity Conference</p>
 
           <h1 class="hero-title" id="hero-heading">
