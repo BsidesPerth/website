@@ -528,30 +528,28 @@
     updateTab();
   </script>
 
+  <script src="ticket-status.js"></script>
   <script>
-    /* Ticket availability banner — reads ticket-status.json (updated by GitHub Actions) */
+    /* Ticket availability banner */
     (function () {
-      fetch('ticket-status.json')
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function (data) {
-        var banner = document.getElementById('ticket-banner');
-        var msg    = document.getElementById('ticket-banner-msg');
-        var cta    = document.getElementById('ticket-banner-cta');
-        var soldOut    = data.markedAsSoldOut || data.suspendSales;
-        var hasTickets = (data.ticketTypes || []).some(function (t) {
-          return !t.disabled && !t.deleted && t.price > 0;
-        });
-        if (soldOut || !hasTickets) {
-          banner.classList.add('ticket-banner--sold-out');
-          msg.textContent = 'Tickets are sold out \u2014 BSides Perth 2026 registrations are now closed.';
-          cta.parentNode.removeChild(cta);
-        } else {
-          banner.classList.add('ticket-banner--available');
-          msg.textContent = 'Tickets are available for BSides Perth 2026!';
-        }
-        banner.style.display = 'block';
-      })
-      .catch(function () {});
+      var data = window.ticketStatus;
+      if (!data) return;
+      var banner = document.getElementById('ticket-banner');
+      var msg    = document.getElementById('ticket-banner-msg');
+      var cta    = document.getElementById('ticket-banner-cta');
+      var soldOut    = data.markedAsSoldOut || data.suspendSales;
+      var hasTickets = (data.ticketTypes || []).some(function (t) {
+        return !t.disabled && !t.deleted && t.price > 0;
+      });
+      if (soldOut || !hasTickets) {
+        banner.classList.add('ticket-banner--sold-out');
+        msg.textContent = 'Tickets are sold out \u2014 BSides Perth 2026 registrations are now closed.';
+        cta.parentNode.removeChild(cta);
+      } else {
+        banner.classList.add('ticket-banner--available');
+        msg.textContent = 'Tickets are available for BSides Perth 2026!';
+      }
+      banner.style.display = 'block';
     })();
   </script>
 
