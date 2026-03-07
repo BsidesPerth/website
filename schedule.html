@@ -245,7 +245,7 @@
   <script>
     /* Ticket availability banner — reads ticket-status.json (updated by GitHub Actions) */
     (function () {
-      fetch('/ticket-status.json')
+      fetch('ticket-status.json')
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (data) {
         var banner = document.getElementById('ticket-banner');
@@ -263,9 +263,9 @@
           banner.classList.add('ticket-banner--available');
           msg.textContent = 'Tickets are available for BSides Perth 2026!';
         }
-        banner.style.display = '';
+        banner.style.display = 'block';
       })
-      .catch(function () { /* fail silently on CORS/network error */ });
+      .catch(function () {});
     })();
   </script>
 
