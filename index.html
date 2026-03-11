@@ -905,6 +905,11 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+    .footer-legal-link {
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .footer-legal-link:hover { color: rgba(255,255,255,0.7); }
   </style>
 </head>
 
@@ -1338,9 +1343,9 @@
       <div class="footer-bottom">
         <p>&copy; 2026 BSides Perth. All rights reserved.</p>
         <p>
-          <a href="code-of-conduct.html" style="color: rgba(255,255,255,0.4); transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Code of Conduct</a>
+          <a href="code-of-conduct.html" class="footer-legal-link">Code of Conduct</a>
           &nbsp;&middot;&nbsp;
-          <a href="code-of-conduct.html#privacy-policy" style="color: rgba(255,255,255,0.4); transition: color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Privacy Policy</a>
+          <a href="code-of-conduct.html#privacy-policy" class="footer-legal-link">Privacy Policy</a>
         </p>
       </div>
     </div>
