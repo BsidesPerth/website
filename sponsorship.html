@@ -484,38 +484,10 @@
       display: flex; align-items: center; justify-content: space-between;
       font-size: 0.8125rem; color: rgba(255,255,255,0.3); gap: 12px; flex-wrap: wrap;
     }
-
-    /* TICKET AVAILABILITY BANNER */
-    .ticket-banner {
-      display: none; padding: 11px 20px;
-      font-size: 0.875rem; font-weight: 600; letter-spacing: 0.01em;
-      text-align: center; line-height: 1.4;
-    }
-    .ticket-banner--available { background: #16a34a; color: #ffffff; }
-    .ticket-banner--sold-out  { background: #dc2626; color: #ffffff; }
-    .ticket-banner-inner {
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px; flex-wrap: wrap; max-width: 1160px; margin: 0 auto;
-    }
-    .ticket-banner-link {
-      background: rgba(255,255,255,0.2); color: inherit;
-      padding: 5px 14px; border-radius: 4px;
-      font-weight: 700; font-size: 0.8125rem; white-space: nowrap;
-      transition: background 0.2s;
-    }
-    .ticket-banner-link:hover { background: rgba(255,255,255,0.3); }
   </style>
 </head>
 
 <body>
-
-  <!-- TICKET AVAILABILITY BANNER -->
-  <div id="ticket-banner" class="ticket-banner" role="status" aria-live="polite" aria-atomic="true">
-    <div class="ticket-banner-inner">
-      <span id="ticket-banner-msg"></span>
-      <a href="https://events.humanitix.com/bsides-perth-2026" id="ticket-banner-cta" class="ticket-banner-link" target="_blank" rel="noopener">Get Tickets &rarr;</a>
-    </div>
-  </div>
 
   <a href="#main" class="skip-link">Skip to content</a>
 
@@ -981,30 +953,6 @@
     });
   </script>
 
-  <script src="ticket-status.js"></script>
-  <script>
-    /* Ticket availability banner */
-    (function () {
-      var data = window.ticketStatus;
-      if (!data) return;
-      var banner = document.getElementById('ticket-banner');
-      var msg    = document.getElementById('ticket-banner-msg');
-      var cta    = document.getElementById('ticket-banner-cta');
-      var soldOut    = data.markedAsSoldOut || data.suspendSales;
-      var hasTickets = (data.ticketTypes || []).some(function (t) {
-        return !t.disabled && !t.deleted && t.price > 0;
-      });
-      if (soldOut || !hasTickets) {
-        banner.classList.add('ticket-banner--sold-out');
-        msg.textContent = 'Tickets are sold out \u2014 BSides Perth 2026 registrations are now closed.';
-        cta.parentNode.removeChild(cta);
-      } else {
-        banner.classList.add('ticket-banner--available');
-        msg.textContent = 'Tickets are available for BSides Perth 2026!';
-      }
-      banner.style.display = 'block';
-    })();
-  </script>
 
 </body>
 </html>
