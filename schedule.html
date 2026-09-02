@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schedule — BSides Perth 2026</title>
-  <meta name="description" content="The BSides Perth 2026 schedule is coming soon. Call for papers opening shortly.">
+  <meta name="description" content="The BSides Perth 2026 schedule is coming soon. The call for papers is open — submit your talk now.">
 
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -54,6 +54,8 @@
     .site-logo img { height: 38px; width: auto; }
     .site-nav { display: flex; align-items: center; }
     .nav-list { display: flex; align-items: center; gap: 36px; list-style: none; }
+    /* Tighten spacing before the mobile breakpoint so all items still fit */
+    @media (max-width: 1100px) { .nav-list { gap: 20px; } }
     .nav-list a {
       color: rgba(255,255,255,0.75); font-size: 0.8125rem; font-weight: 500;
       letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s;
@@ -163,6 +165,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="index.html#about">About</a></li>
           <li><a href="schedule.html" class="active">Schedule</a></li>
+          <li><a href="index.html#cfp">Call for Papers</a></li>
           <li><a href="index.html#sponsors">Sponsors</a></li>
           <li><a href="sponsorship.html">Sponsor Us</a></li>
           <li><a href="https://events.humanitix.com/bsides-perth-2026" target="_blank" rel="noopener" class="nav-cta">Get Tickets</a></li>
@@ -180,12 +183,16 @@
       <h1>Schedule<br><span class="accent">Coming Soon.</span></h1>
 
       <p class="lead">
-        The call for papers will be opening shortly &mdash; check back soon.<br>
-        Interested in sponsoring BSides Perth 2026? We&rsquo;d love to hear from you.
+        The call for papers is <strong style="color: var(--white); font-weight: 700;">now open</strong> &mdash; we&rsquo;d love to hear what you&rsquo;ve been working on.<br>
+        The schedule will be published once talks are selected.
       </p>
 
       <div class="actions">
-        <a href="mailto:info@bsidesperth.com.au" class="btn btn-primary">
+        <a href="https://forms.gle/e5kAxkTwzzuXduST7" target="_blank" rel="noopener" class="btn btn-primary">
+          Submit a Talk
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="mailto:info@bsidesperth.com.au" class="btn btn-ghost">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           info@bsidesperth.com.au
         </a>
