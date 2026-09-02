@@ -154,6 +154,11 @@
     }
     .nav-cta:hover { background: var(--yellow-dark) !important; }
 
+    /* Tighten spacing before the mobile breakpoint so six items still fit */
+    @media (max-width: 1040px) {
+      .nav-list { gap: 22px; }
+    }
+
     /* Hamburger */
     .nav-toggle {
       display: none;
@@ -755,9 +760,92 @@
       display: grid;
       gap: 14px;
     }
+    .sponsor-grid--platinum { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
     .sponsor-grid--gold   { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
     .sponsor-grid--silver { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
     .sponsor-grid--bronze { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .sponsor-grid--named  { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+
+    /* Platinum gets a taller card and a yellow edge */
+    .sponsor-grid--platinum .sponsor-card {
+      aspect-ratio: 5 / 2.4;
+      border-left: 3px solid var(--yellow);
+    }
+    .sponsor-grid--platinum .sponsor-card img { max-height: 120px; }
+
+    /* Named sponsorships (village, lunch, coffee...) carry a caption */
+    .sponsor-card--named {
+      flex-direction: column;
+      gap: 14px;
+      aspect-ratio: auto;
+      padding: 28px;
+    }
+    .sponsor-card--named .named-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+    }
+    .sponsor-card--named .named-wordmark {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .named-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--yellow-dark);
+      text-align: center;
+    }
+
+    /* Past supporters */
+    .past-sponsors {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .past-heading {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .past-lead {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+    .past-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+      gap: 10px;
+    }
+    .past-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 16px;
+      aspect-ratio: 5 / 2;
+      transition: border-color 0.2s;
+    }
+    .past-card:hover { border-color: #C8C8C6; }
+    .past-card img {
+      max-width: 100%;
+      max-height: 38px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.55;
+      transition: filter 0.2s, opacity 0.2s;
+    }
+    .past-card:hover img { filter: none; opacity: 1; }
 
     .sponsor-card {
       background: var(--white);
@@ -801,6 +889,92 @@
       text-underline-offset: 3px;
     }
     .sponsor-note a:hover { color: var(--black); }
+
+    /* =============================================
+       CALL FOR PAPERS
+       ============================================= */
+    #cfp { background: var(--black); }
+
+    .cfp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .cfp-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .cfp-lead { margin-bottom: 28px; }
+
+    .cfp-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+
+    .cfp-topics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      list-style: none;
+    }
+    @media (max-width: 520px) {
+      .cfp-topics { grid-template-columns: 1fr; }
+    }
+    .cfp-topics li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .cfp-topics .check {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cfp-topics .check svg { width: 10px; height: 10px; }
+
+    .cfp-panel {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--r-lg);
+      padding: 36px;
+    }
+    .cfp-panel h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .cfp-facts { list-style: none; }
+    .cfp-facts li {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-dark);
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .cfp-facts li:last-child { border-bottom: none; }
+    .cfp-facts .fact-value {
+      color: var(--white);
+      font-weight: 600;
+      text-align: right;
+    }
+    .cfp-note {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-top: 20px;
+    }
+    .cfp-note a { color: var(--yellow); }
+    .cfp-note a:hover { text-decoration: underline; }
 
     /* =============================================
        SPONSOR CTA (become a sponsor)
@@ -934,6 +1108,7 @@
         <ul class="nav-list">
           <li><a href="#about">About</a></li>
           <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="#cfp">Call for Papers</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
           <li><a href="#sponsor-us">Sponsor Us</a></li>
           <li><a href="https://events.humanitix.com/bsides-perth-2026" target="_blank" rel="noopener" class="nav-cta">Get Tickets</a></li>
@@ -1116,6 +1291,76 @@
     </section>
 
     <!-- =============================================
+         CALL FOR PAPERS
+         ============================================= -->
+    <section id="cfp" aria-labelledby="cfp-heading">
+      <div class="wrap">
+        <div class="cfp-grid">
+
+          <div>
+            <p class="section-kicker section-kicker--light">Call for Papers</p>
+            <h2 class="section-title section-title--light" id="cfp-heading">Speak at BSides Perth 2026</h2>
+            <p class="section-lead section-lead--light cfp-lead">
+              The call for papers is open. Whether it&rsquo;s your first talk or your fiftieth, we want to hear what you&rsquo;ve been working on &mdash; BSides is built on practitioners sharing real work with the community.
+            </p>
+
+            <ul class="cfp-topics">
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              Original research &amp; tooling
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              Offensive security &amp; red teaming
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              Blue team, detection &amp; response
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              Cloud, OT/ICS &amp; appsec
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              Privacy, policy &amp; human factors
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 3 5 9 2 6"/></svg></span>
+              War stories &amp; lessons learned
+            </li>
+            </ul>
+
+            <div class="cfp-actions">
+              <a href="https://forms.gle/e5kAxkTwzzuXduST7" target="_blank" rel="noopener" class="btn btn-primary">
+                Submit a Talk
+                <!-- Arrow right icon -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+              <a href="mailto:info@bsidesperth.com.au" class="btn btn-ghost">Ask a Question</a>
+            </div>
+          </div>
+
+          <div class="cfp-panel">
+            <h3>Before you submit</h3>
+            <ul class="cfp-facts">
+              <li><span>Event</span><span class="fact-value">13&ndash;14 November 2026</span></li>
+              <li><span>Venue</span><span class="fact-value">UWA Business School, Crawley</span></li>
+              <li><span>Formats</span><span class="fact-value">Talks &amp; workshops</span></li>
+              <li><span>Experience</span><span class="fact-value">First-time speakers welcome</span></li>
+              <li><span>Sales pitches</span><span class="fact-value">Not accepted</span></li>
+            </ul>
+            <p class="cfp-note">
+              Submissions are made through our Google Form and all speakers are expected to follow the
+              <a href="code-of-conduct.html">Code of Conduct</a>. New to speaking? Get in touch &mdash; we&rsquo;re happy to help you shape an idea into a talk.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
          ABOUT
          ============================================= -->
     <section id="about" aria-labelledby="about-heading">
@@ -1201,14 +1446,14 @@
     <section id="sponsors" aria-labelledby="sponsors-heading">
       <div class="wrap">
         <p class="section-kicker">Thank You</p>
-        <h2 class="section-title" id="sponsors-heading">Our 2025 Sponsors</h2>
-        <p class="section-lead">These organisations made BSides Perth 2025 possible. Please take a moment to thank them.</p>
+        <h2 class="section-title" id="sponsors-heading">Our 2026 Sponsors</h2>
+        <p class="section-lead">These organisations are making BSides Perth 2026 possible. Please take a moment to thank them.</p>
 
         <div class="sponsor-tier">
-          <p class="tier-heading">Gold</p>
-          <div class="sponsor-grid sponsor-grid--gold">
-            <a href="#" class="sponsor-card" aria-label="P9 — Gold sponsor">
-              <img src="assets/img/portfolio/placeholder.png" alt="P9">
+          <p class="tier-heading">Platinum</p>
+          <div class="sponsor-grid sponsor-grid--platinum">
+            <a href="https://www.woodside.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Woodside Energy — Platinum sponsor">
+              <img src="assets/img/portfolio/sponsor-woodside.png" alt="Woodside Energy">
             </a>
           </div>
         </div>
@@ -1216,48 +1461,69 @@
         <div class="sponsor-tier">
           <p class="tier-heading">Silver</p>
           <div class="sponsor-grid sponsor-grid--silver">
-            <a href="https://www.uwa.edu.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="UWA — Silver sponsor">
-              <img src="assets/img/portfolio/sponsor-uwa.png" alt="The University of Western Australia">
-            </a>
-            <a href="https://www.infosectcbr.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="InfoSect — Silver sponsor">
-              <img src="assets/img/portfolio/sponsor-infosect.png" alt="InfoSect">
-            </a>
-            <a href="https://horizon3.ai/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Horizon3.ai — Silver sponsor">
-              <img src="assets/img/portfolio/H3-lowres.png" alt="Horizon3.ai">
-            </a>
-            <a href="https://sekuro.io/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Sekuro — Silver sponsor">
-              <img src="assets/img/portfolio/Sekuro.png" alt="Sekuro">
-            </a>
-          </div>
-        </div>
-
-        <div class="sponsor-tier">
-          <p class="tier-heading">Bronze</p>
-          <div class="sponsor-grid sponsor-grid--bronze">
-            <a href="https://mantelgroup.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Mantel Group — Bronze sponsor">
-              <img src="assets/img/portfolio/sponsor-mantel.png" alt="Mantel Group">
-            </a>
-            <a href="https://www.trustwave.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Trustwave — Bronze sponsor">
-              <img src="assets/img/portfolio/sponsor-trustwave.png" alt="Trustwave">
-            </a>
-            <a href="https://www.cyberwesthub.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Cyber West — Bronze sponsor">
-              <img src="assets/img/portfolio/sponsor-cyber-west.png" alt="Cyber West Innovation Hub">
-            </a>
-            <a href="https://www.summon-cyber.pro/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Summon Cyber — Bronze sponsor">
-              <img src="assets/img/portfolio/sponsor-summon.png" alt="Summon Cyber">
-            </a>
-            <a href="https://www.grcmastery.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="GRC Mastery — Bronze sponsor">
-              <img src="assets/img/portfolio/sponsor-grc.png" alt="GRC Mastery">
-            </a>
-            <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Galah Cyber — Bronze sponsor">
+            <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Galah Cyber — Silver sponsor">
               <img src="assets/img/portfolio/sponsor-galah-blue.png" alt="Galah Cyber">
             </a>
           </div>
         </div>
 
+        <div class="sponsor-tier">
+          <p class="tier-heading">Village &amp; Event Sponsors</p>
+          <div class="sponsor-grid sponsor-grid--named">
+            <a href="https://cybercx.com.au/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="CyberCX — Locksport Village sponsor">
+              <span class="named-logo"><img src="assets/img/portfolio/sponsor-cybercx.png" alt="CyberCX"></span>
+              <span class="named-label">Locksport Village</span>
+            </a>
+            <a href="https://www.elttam.com/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="elttam — Lunch sponsor">
+              <span class="named-logo"><span class="named-wordmark">elttam</span></span>
+              <span class="named-label">Lunch Sponsor</span>
+            </a>
+          </div>
+        </div>
+
         <div class="sponsor-note">
-          <strong>2026 sponsorship opportunities are open.</strong>
+          <strong>2026 sponsorship opportunities are still open.</strong>
           Email <a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a> to discuss how your organisation can partner with BSides Perth 2026.
+        </div>
+
+        <div class="past-sponsors">
+          <p class="past-heading">Previously supported by</p>
+          <p class="past-lead">Our 2025 sponsors &mdash; thank you for making last year happen.</p>
+          <div class="past-grid">
+            <div class="past-card" title="P9 &mdash; Gold sponsor, 2025">
+              <img src="assets/img/portfolio/placeholder.png" alt="P9">
+            </div>
+            <div class="past-card" title="The University of Western Australia &mdash; Silver sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-uwa.png" alt="The University of Western Australia">
+            </div>
+            <div class="past-card" title="InfoSect &mdash; Silver sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-infosect.png" alt="InfoSect">
+            </div>
+            <div class="past-card" title="Horizon3.ai &mdash; Silver sponsor, 2025">
+              <img src="assets/img/portfolio/H3-lowres.png" alt="Horizon3.ai">
+            </div>
+            <div class="past-card" title="Sekuro &mdash; Silver sponsor, 2025">
+              <img src="assets/img/portfolio/Sekuro.png" alt="Sekuro">
+            </div>
+            <div class="past-card" title="Mantel Group &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-mantel.png" alt="Mantel Group">
+            </div>
+            <div class="past-card" title="Trustwave &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-trustwave.png" alt="Trustwave">
+            </div>
+            <div class="past-card" title="Cyber West Innovation Hub &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-cyber-west.png" alt="Cyber West Innovation Hub">
+            </div>
+            <div class="past-card" title="Summon Cyber &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-summon.png" alt="Summon Cyber">
+            </div>
+            <div class="past-card" title="GRC Mastery &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-grc.png" alt="GRC Mastery">
+            </div>
+            <div class="past-card" title="Galah Cyber &mdash; Bronze sponsor, 2025">
+              <img src="assets/img/portfolio/sponsor-galah-blue.png" alt="Galah Cyber">
+            </div>
+          </div>
         </div>
 
       </div>
@@ -1323,6 +1589,7 @@
           <ul class="footer-links">
             <li><a href="#tickets">Tickets</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#cfp">Call for Papers</a></li>
             <li><a href="#sponsors">Sponsors</a></li>
             <li><a href="sponsorship.html">Become a Sponsor</a></li>
             <li><a href="code-of-conduct.html">Code of Conduct</a></li>
