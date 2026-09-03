@@ -760,18 +760,41 @@
       display: grid;
       gap: 14px;
     }
-    .sponsor-grid--platinum { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-    .sponsor-grid--gold   { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-    .sponsor-grid--silver { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+    /* Tier presence is set by how much width the grid may claim: platinum
+       takes half the row, silver a quarter, so rank reads at a glance. */
+    .sponsor-grid--platinum { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 50%; }
+    .sponsor-grid--gold   { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 38%; }
+    .sponsor-grid--silver { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); max-width: 25%; }
     .sponsor-grid--bronze { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .sponsor-grid--named  { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .sponsor-grid--named  { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 70%; }
+
+    /* Narrower viewports still keep platinum visibly ahead of silver —
+       a square silver card at full width would outweigh it. */
+    @media (max-width: 980px) {
+      .sponsor-grid--platinum { max-width: 70%; }
+      .sponsor-grid--gold     { max-width: 52%; }
+      .sponsor-grid--silver   { max-width: 34%; }
+      .sponsor-grid--named    { max-width: 92%; }
+    }
+    @media (max-width: 680px) {
+      .sponsor-grid--platinum,
+      .sponsor-grid--gold,
+      .sponsor-grid--named { max-width: 100%; }
+      .sponsor-grid--silver { max-width: 55%; }
+    }
 
     /* Platinum gets a taller card and a yellow edge */
+    /* Both marks are square, so the cards are deep enough for them to read
+       large rather than being squeezed by a letterbox card. */
     .sponsor-grid--platinum .sponsor-card {
-      aspect-ratio: 5 / 2.4;
+      aspect-ratio: 5 / 3;
       border-left: 3px solid var(--yellow);
     }
-    .sponsor-grid--platinum .sponsor-card img { max-height: 120px; }
+    .sponsor-grid--platinum .sponsor-card img { max-height: 100%; max-width: 60%; }
+
+    .sponsor-grid--silver .sponsor-card { aspect-ratio: 1 / 1; }
+    .sponsor-grid--silver .sponsor-card img { max-height: 100%; max-width: 90%; }
+
 
     /* Named sponsorships (village, lunch, coffee...) carry a caption */
     .sponsor-card--named {
@@ -784,14 +807,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 56px;
+      height: 96px;
     }
-    .sponsor-card--named .named-wordmark {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
+    .sponsor-card--named .named-logo img { max-height: 88px; }
     .named-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -870,6 +888,14 @@
       transition: filter 0.2s;
     }
     .sponsor-card:hover img { filter: none; }
+
+    /* A sponsor whose logo is white needs its brand colour behind it */
+    .sponsor-card.sponsor-card--pink {
+      background: #ED1D79;
+      border-color: #ED1D79;
+    }
+    .sponsor-card--pink:hover { border-color: #C4155F; }
+    .sponsor-card--pink img { filter: none; }
 
     .sponsor-note {
       margin-top: 48px;
@@ -1461,8 +1487,8 @@
         <div class="sponsor-tier">
           <p class="tier-heading">Silver</p>
           <div class="sponsor-grid sponsor-grid--silver">
-            <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Galah Cyber — Silver sponsor">
-              <img src="assets/img/portfolio/sponsor-galah-blue.png" alt="Galah Cyber">
+            <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--pink" aria-label="Galah Cyber — Silver sponsor">
+              <img src="assets/img/portfolio/sponsor-galah-white.png" alt="Galah Cyber">
             </a>
           </div>
         </div>
@@ -1475,7 +1501,7 @@
               <span class="named-label">Locksport Village</span>
             </a>
             <a href="https://www.elttam.com/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="elttam — Lunch sponsor">
-              <span class="named-logo"><span class="named-wordmark">elttam</span></span>
+              <span class="named-logo"><img src="assets/img/portfolio/sponsor-elttam.png" alt="elttam"></span>
               <span class="named-label">Lunch Sponsor</span>
             </a>
           </div>
