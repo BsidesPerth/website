@@ -766,7 +766,7 @@
     .sponsor-grid--gold   { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 38%; }
     .sponsor-grid--silver { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); max-width: 25%; }
     .sponsor-grid--bronze { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .sponsor-grid--named  { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .sponsor-grid--named  { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 70%; }
 
     /* Narrower viewports still keep platinum visibly ahead of silver —
        a square silver card at full width would outweigh it. */
@@ -774,10 +774,12 @@
       .sponsor-grid--platinum { max-width: 70%; }
       .sponsor-grid--gold     { max-width: 52%; }
       .sponsor-grid--silver   { max-width: 34%; }
+      .sponsor-grid--named    { max-width: 92%; }
     }
     @media (max-width: 680px) {
       .sponsor-grid--platinum,
-      .sponsor-grid--gold { max-width: 100%; }
+      .sponsor-grid--gold,
+      .sponsor-grid--named { max-width: 100%; }
       .sponsor-grid--silver { max-width: 55%; }
     }
 
@@ -805,15 +807,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 76px;
+      height: 96px;
     }
-    .sponsor-card--named img { max-height: 76px; }
-    .sponsor-card--named .named-wordmark {
-      font-size: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
+    .sponsor-card--named .named-logo img { max-height: 88px; }
     .named-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -1505,7 +1501,7 @@
               <span class="named-label">Locksport Village</span>
             </a>
             <a href="https://www.elttam.com/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="elttam — Lunch sponsor">
-              <span class="named-logo"><span class="named-wordmark">elttam</span></span>
+              <span class="named-logo"><img src="assets/img/portfolio/sponsor-elttam.png" alt="elttam"></span>
               <span class="named-label">Lunch Sponsor</span>
             </a>
           </div>
