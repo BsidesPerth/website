@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 434 132" width="868" height="264" role="img" aria-label="BADDIE">
+  <title>BADDIE</title>
+  <g fill="none" stroke="#2E3238" stroke-width="7" stroke-linejoin="round" fill-rule="evenodd">
+    <!-- B -->
+    <path transform="translate(0,0)" d="M0,0 H44 C58,0 66,9 66,25 C66,37 61,45 53,48 C63,51 69,60 69,73 C69,90 60,100 44,100 H0 Z M22,17 V41 H41 C47,41 50,37 50,29 C50,21 47,17 41,17 Z M22,59 V83 H43 C49,83 52,79 52,71 C52,63 49,59 43,59 Z"/>
+    <!-- A -->
+    <path transform="translate(78,0)" d="M0,100 L27,0 H49 L76,100 Z M38,29.6 L29.26,62 H46.74 Z M24.4,80 L19,100 H57 L51.6,80 Z"/>
+    <!-- D -->
+    <path transform="translate(163,0)" d="M0,0 H38 C57,0 68,18 68,50 C68,82 57,100 38,100 H0 Z M22,18 V82 H37 C48,82 54,70 54,50 C54,30 48,18 37,18 Z"/>
+    <!-- D -->
+    <path transform="translate(240,0)" d="M0,0 H38 C57,0 68,18 68,50 C68,82 57,100 38,100 H0 Z M22,18 V82 H37 C48,82 54,70 54,50 C54,30 48,18 37,18 Z"/>
+    <!-- I -->
+    <path transform="translate(317,0)" d="M0,0 H20 V100 H0 Z"/>
+    <!-- E -->
+    <path transform="translate(346,0)" d="M0,0 H56 V18 H22 V41 H50 V59 H22 V82 H56 V100 H0 Z"/>
+  </g>
+</svg>
