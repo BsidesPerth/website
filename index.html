@@ -764,7 +764,7 @@
        takes half the row, silver a quarter, so rank reads at a glance. */
     .sponsor-grid--platinum { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 50%; }
     .sponsor-grid--gold   { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 38%; }
-    .sponsor-grid--silver { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); max-width: 25%; }
+    .sponsor-grid--silver { grid-template-columns: repeat(auto-fill, minmax(140px, 250px)); }
     .sponsor-grid--bronze { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     .sponsor-grid--named  { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 70%; }
 
@@ -773,14 +773,13 @@
     @media (max-width: 980px) {
       .sponsor-grid--platinum { max-width: 70%; }
       .sponsor-grid--gold     { max-width: 52%; }
-      .sponsor-grid--silver   { max-width: 34%; }
       .sponsor-grid--named    { max-width: 92%; }
     }
     @media (max-width: 680px) {
       .sponsor-grid--platinum,
       .sponsor-grid--gold,
       .sponsor-grid--named { max-width: 100%; }
-      .sponsor-grid--silver { max-width: 55%; }
+      .sponsor-grid--silver { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     }
 
     /* Platinum gets a taller card and a yellow edge */
@@ -1489,6 +1488,9 @@
           <div class="sponsor-grid sponsor-grid--silver">
             <a href="https://www.galahcyber.com.au/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--pink" aria-label="Galah Cyber — Silver sponsor">
               <img src="assets/img/portfolio/sponsor-galah-white.png" alt="Galah Cyber">
+            </a>
+            <a href="https://onedotzero.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="One Dot Zero — Silver sponsor">
+              <img src="assets/img/portfolio/sponsor-onedotzero.png" alt="One Dot Zero">
             </a>
           </div>
         </div>
