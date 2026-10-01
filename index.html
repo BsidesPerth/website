@@ -791,6 +791,9 @@
     }
     .sponsor-grid--platinum .sponsor-card img { max-height: 100%; max-width: 60%; }
 
+    /* Gold marks tend to be wide wordmarks, so let them use the card's width */
+    .sponsor-grid--gold .sponsor-card img { max-height: 100%; max-width: 85%; }
+
     .sponsor-grid--silver .sponsor-card { aspect-ratio: 1 / 1; }
     .sponsor-grid--silver .sponsor-card img { max-height: 100%; max-width: 90%; }
 
@@ -1479,6 +1482,15 @@
           <div class="sponsor-grid sponsor-grid--platinum">
             <a href="https://www.woodside.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Woodside Energy — Platinum sponsor">
               <img src="assets/img/portfolio/sponsor-woodside.png" alt="Woodside Energy">
+            </a>
+          </div>
+        </div>
+
+        <div class="sponsor-tier">
+          <p class="tier-heading">Gold</p>
+          <div class="sponsor-grid sponsor-grid--gold">
+            <a href="https://www.huntress.com/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Huntress — Gold sponsor">
+              <img src="assets/img/portfolio/sponsor-huntress.svg" alt="Huntress">
             </a>
           </div>
         </div>
