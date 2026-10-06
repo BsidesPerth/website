@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schedule — BSides Perth 2026</title>
-  <meta name="description" content="The BSides Perth 2026 call for papers is now closed. The schedule is coming soon.">
+  <meta name="description" content="The BSides Perth 2026 program: two days of talks plus workshops, 13–14 November 2026 at UWA Business School, Crawley.">
 
   <link rel="icon" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -95,56 +95,86 @@
     }
 
     /* MAIN */
-    main {
-      flex: 1; display: flex;
-      align-items: center; justify-content: center;
-      padding: 80px 28px;
-      position: relative; overflow: hidden;
-    }
+    main { flex: 1; padding: 72px 28px 96px; position: relative; overflow: hidden; }
+    .wrap { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
 
     .bg-text {
-      position: absolute; right: -40px; bottom: -80px;
+      position: absolute; right: -40px; top: 0;
       font-size: clamp(180px, 30vw, 380px);
       font-weight: 800; letter-spacing: -0.05em;
       color: rgba(255,255,255,0.025);
       line-height: 1; user-select: none; pointer-events: none; white-space: nowrap;
     }
 
-    .content { position: relative; z-index: 1; max-width: 640px; text-align: center; }
-
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       color: var(--yellow); font-size: 0.6875rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 28px;
+      letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px;
     }
-    .eyebrow::before, .eyebrow::after {
-      content: ''; display: block; width: 24px; height: 2px; background: var(--yellow);
-    }
+    .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--yellow); }
 
     h1 {
-      font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 800;
+      font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800;
       color: var(--white); letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px;
     }
     h1 .accent { color: var(--yellow); }
 
     .lead {
       font-size: clamp(1rem, 2.5vw, 1.125rem);
-      color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 48px;
+      color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 640px; margin-bottom: 36px;
     }
 
-    .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--font); font-weight: 700; font-size: 0.9375rem;
-      padding: 14px 28px; border-radius: var(--r);
-      border: 2px solid transparent; cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    /* DAY TABS */
+    .day-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
+    .day-tabs a {
+      font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 10px 18px; border-radius: var(--r); border: 1px solid var(--border-dark);
+      color: rgba(255,255,255,0.75); transition: border-color 0.2s, color 0.2s;
     }
-    .btn-primary { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
-    .btn-primary:hover { background: var(--yellow-dark); border-color: var(--yellow-dark); }
-    .btn-ghost { background: transparent; color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.2); }
-    .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
+    .day-tabs a:hover { color: var(--white); border-color: var(--yellow); }
+
+    /* DAYS */
+    .day { margin-bottom: 64px; scroll-margin-top: 24px; }
+    .day-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      padding-bottom: 14px; margin-bottom: 8px; border-bottom: 2px solid var(--yellow);
+    }
+    .day-head h2 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; letter-spacing: -0.03em; }
+    .day-head p { color: rgba(255,255,255,0.55); font-size: 0.9375rem; }
+
+    .slot {
+      display: grid; grid-template-columns: 130px 1fr; gap: 24px;
+      padding: 22px 0; border-bottom: 1px solid var(--border-dark);
+    }
+    .slot-time {
+      font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.9375rem;
+      color: rgba(255,255,255,0.7); white-space: nowrap;
+    }
+    .slot-title { font-size: 1.0625rem; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
+    .slot-speaker { color: var(--yellow); font-weight: 600; font-size: 0.9375rem; }
+    .slot-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .tag {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border-dark);
+      color: rgba(255,255,255,0.6);
+    }
+    .tag--long { border-color: var(--yellow); color: var(--yellow); }
+
+    .slot--break { padding: 14px 0; }
+    .slot--break .slot-title, .slot--break .slot-time { color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 0; }
+    .slot-desc { color: rgba(255,255,255,0.6); font-size: 0.9375rem; margin-top: 6px; }
+    .slot-desc a { color: var(--yellow); text-decoration: underline; text-underline-offset: 3px; }
+
+    .note {
+      color: rgba(255,255,255,0.5); font-size: 0.875rem; border-left: 2px solid var(--yellow);
+      padding-left: 14px; margin-top: 20px;
+    }
+    .note a { color: var(--yellow); }
+
+    @media (max-width: 600px) {
+      main { padding: 48px 16px 72px; }
+      .slot { grid-template-columns: 1fr; gap: 6px; }
+    }
 
     .footer-rule { height: 3px; background: var(--yellow); flex-shrink: 0; }
   </style>
@@ -175,25 +205,232 @@
   </header>
 
   <main>
-    <div class="bg-text" aria-hidden="true">CFP</div>
+    <div class="bg-text" aria-hidden="true">2026</div>
 
-    <div class="content">
+    <div class="wrap">
       <p class="eyebrow">BSides Perth 2026</p>
-
-      <h1>Schedule<br><span class="accent">Coming Soon.</span></h1>
-
+      <h1>The <span class="accent">Schedule.</span></h1>
       <p class="lead">
-        The call for papers is <strong style="color: var(--white); font-weight: 700;">now closed</strong> &mdash; thank you to everyone who submitted.<br>
-        The schedule will be published once talks are selected.
+        Two days of talks and workshops at UWA Business School, Crawley &mdash; Friday 13 and Saturday 14 November 2026.
+        All times are AWST. The program may change, so check back closer to the day.
       </p>
 
-      <div class="actions">
-        <a href="mailto:info@bsidesperth.com.au" class="btn btn-ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          info@bsidesperth.com.au
-        </a>
-        <a href="index.html" class="btn btn-ghost">&larr; Back to Home</a>
-      </div>
+      <nav class="day-tabs" aria-label="Jump to day">
+        <a href="#day-1">Fri 13 Nov</a>
+        <a href="#day-2">Sat 14 Nov</a>
+        <a href="#workshops">Workshops</a>
+      </nav>
+
+      <section class="day" id="day-1" aria-labelledby="day-1-heading">
+        <div class="day-head">
+          <h2 id="day-1-heading">Day 1 &mdash; Friday 13 November</h2>
+          <p>Hardware &amp; Exploitation</p>
+        </div>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="09:00">9:00am</time>&ndash;<time datetime="09:20">9:20am</time></div>
+          <div>
+            <p class="slot-title">Welcome &amp; opening</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="09:20">9:20am</time>&ndash;<time datetime="10:05">10:05am</time></div>
+          <div>
+            <h3 class="slot-title">OculaRCE: From EV Charger to Internal Network</h3>
+            <p class="slot-speaker">Brendan Scarvell</p>
+            <div class="slot-meta"><span class="tag">Hardware Hacking</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="10:10">10:10am</time>&ndash;<time datetime="10:40">10:40am</time></div>
+          <div>
+            <h3 class="slot-title">I Built a Tiny Passkey Authenticator, Then Had to Explain Why You Shouldn’t Trust It</h3>
+            <p class="slot-speaker">George Coldham</p>
+            <div class="slot-meta"><span class="tag">Identity / Hardware Security</span><span class="tag">30 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="10:40">10:40am</time>&ndash;<time datetime="11:00">11:00am</time></div>
+          <div>
+            <p class="slot-title">Morning tea</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="11:00">11:00am</time>&ndash;<time datetime="11:45">11:45am</time></div>
+          <div>
+            <h3 class="slot-title">Go Foot, Meet Gun: Auditing the Go Ecosystem for Its Sharpest Edges</h3>
+            <p class="slot-speaker">Zoltan Madarassy &amp; Alex (elttam)</p>
+            <div class="slot-meta"><span class="tag">Code Review</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="11:50">11:50am</time>&ndash;<time datetime="12:20">12:20pm</time></div>
+          <div>
+            <h3 class="slot-title">Springing Cats Together: Chaining Intended Behaviours into RCE</h3>
+            <p class="slot-speaker">Chris Elliott</p>
+            <div class="slot-meta"><span class="tag">Red Teaming / Exploitation</span><span class="tag">30 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="12:20">12:20pm</time>&ndash;<time datetime="13:20">1:20pm</time></div>
+          <div>
+            <p class="slot-title">Lunch</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="13:20">1:20pm</time>&ndash;<time datetime="13:50">1:50pm</time></div>
+          <div>
+            <h3 class="slot-title">Dumpster Diving for AI Agent Data Leaks</h3>
+            <p class="slot-speaker">Alexander Wilczek</p>
+            <div class="slot-meta"><span class="tag">AI Data Leaks</span><span class="tag">30 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="13:55">1:55pm</time>&ndash;<time datetime="14:25">2:25pm</time></div>
+          <div>
+            <h3 class="slot-title">I Built An Anti-Cheat And It Gets Progressively More Cursed</h3>
+            <p class="slot-speaker">Ray Goh</p>
+            <div class="slot-meta"><span class="tag">Detection Engineering</span><span class="tag">30 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="14:30">2:30pm</time>&ndash;<time datetime="14:55">2:55pm</time></div>
+          <div>
+            <h3 class="slot-title">The Ghosts of Protocols Past: What Path Dependency Teaches Us About Cyber Security</h3>
+            <p class="slot-speaker">Danielle Rosenfeld-Lovell</p>
+            <div class="slot-meta"><span class="tag">History / Critical Reasoning</span><span class="tag">25 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="15:00">3:00pm</time>&ndash;<time datetime="15:45">3:45pm</time></div>
+          <div>
+            <h3 class="slot-title">Viral Vulnerabilities: Unpacking Copy.Fail and related Linux Kernel bugs</h3>
+            <p class="slot-speaker">Angus Atkinson (InfoSect)</p>
+            <div class="slot-meta"><span class="tag">Linux Kernel / Vuln Research</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="15:50">3:50pm</time>&ndash;<time datetime="16:20">4:20pm</time></div>
+          <div>
+            <h3 class="slot-title">AI Security Q&amp;A with Cole Cornford</h3>
+            <p class="slot-speaker">Cole Cornford</p>
+            <div class="slot-meta"><span class="tag">AI Security</span><span class="tag">30 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="16:20">4:20pm</time>&ndash;<time datetime="16:30">4:30pm</time></div>
+          <div>
+            <p class="slot-title">Day 1 wrap-up</p>
+          </div>
+        </div>
+        <p class="note">After Day 1, join us at the social event from 5pm.</p>
+      </section>
+
+      <section class="day" id="day-2" aria-labelledby="day-2-heading">
+        <div class="day-head">
+          <h2 id="day-2-heading">Day 2 &mdash; Saturday 14 November</h2>
+          <p>Threat Intel, Defence &amp; AI</p>
+        </div>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="09:00">9:00am</time>&ndash;<time datetime="09:15">9:15am</time></div>
+          <div>
+            <p class="slot-title">Day 2 opening</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="09:15">9:15am</time>&ndash;<time datetime="10:00">10:00am</time></div>
+          <div>
+            <h3 class="slot-title">Who is Igor Gilmutdinov? Using OSINT to uncover the people behind Russian bulletproof hosting providers</h3>
+            <p class="slot-speaker">Rich Smith</p>
+            <div class="slot-meta"><span class="tag">OSINT / Threat Intelligence</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="10:05">10:05am</time>&ndash;<time datetime="10:50">10:50am</time></div>
+          <div>
+            <h3 class="slot-title">Trust Me, I&rsquo;m Apple Support</h3>
+            <p class="slot-speaker">Josh Kiriakoff</p>
+            <div class="slot-meta"><span class="tag">macOS Malware</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="10:50">10:50am</time>&ndash;<time datetime="11:10">11:10am</time></div>
+          <div>
+            <p class="slot-title">Morning tea</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="11:10">11:10am</time>&ndash;<time datetime="11:55">11:55am</time></div>
+          <div>
+            <h3 class="slot-title">Purple Teaming yo ICS</h3>
+            <p class="slot-speaker">Bruce ‘BFL’ Large</p>
+            <div class="slot-meta"><span class="tag">Purple Teaming / OT</span><span class="tag tag--long">45 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="11:55">11:55am</time>&ndash;<time datetime="12:55">12:55pm</time></div>
+          <div>
+            <p class="slot-title">Lunch</p>
+          </div>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="12:55">12:55pm</time>&ndash;<time datetime="13:35">1:35pm</time></div>
+          <div>
+            <h3 class="slot-title">A Leukocyte For Supply Chain Attacks</h3>
+            <p class="slot-speaker">Adam Brickhill</p>
+            <div class="slot-meta"><span class="tag">Tool</span><span class="tag">40 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="13:40">1:40pm</time>&ndash;<time datetime="14:20">2:20pm</time></div>
+          <div>
+            <h3 class="slot-title">The enemy within: running untrusted code through AI workloads</h3>
+            <p class="slot-speaker">Kumar Soorya &amp; Kaif Ahsan</p>
+            <div class="slot-meta"><span class="tag">Product / AI Security</span><span class="tag">40 min</span></div>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="14:25">2:25pm</time>&ndash;<time datetime="14:40">2:40pm</time></div>
+          <div>
+            <h3 class="slot-title">A Fool&rsquo;s Paradise - AI vs Humans</h3>
+            <p class="slot-speaker">PS Sides team</p>
+            <div class="slot-meta"><span class="tag">Social Engineering / AI</span><span class="tag">15 min</span></div>
+          </div>
+        </article>
+        <div class="slot slot--break">
+          <div class="slot-time"><time datetime="14:40">2:40pm</time>&ndash;<time datetime="15:10">3:10pm</time></div>
+          <div>
+            <p class="slot-title">Closing ceremony</p>
+            <p class="slot-desc">Prizes, CTF results and thanks to our sponsors &amp; volunteers</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="day" id="workshops" aria-labelledby="workshops-heading">
+        <div class="day-head">
+          <h2 id="workshops-heading">Workshops &mdash; Friday 13 November</h2>
+          <p>Separate rooms, limited places</p>
+        </div>
+        <article class="slot">
+          <div class="slot-time"><time datetime="09:00">9:00am</time>&ndash;<time datetime="17:00">5:00pm</time></div>
+          <div>
+            <h3 class="slot-title">The Art of Practical Threat Modelling</h3>
+            <p class="slot-speaker">Ralph Andalis</p>
+            <div class="slot-meta"><span class="tag">Threat Modelling</span><span class="tag">Full day</span></div>
+            <p class="slot-desc">Ticketed separately (a BSides ticket isn&rsquo;t required). Capped at 30 places. <a href="https://events.humanitix.com/the-art-of-practical-threat-modelling-training-bsides-perth" target="_blank" rel="noopener">Book on Humanitix</a></p>
+          </div>
+        </article>
+        <article class="slot">
+          <div class="slot-time"><time datetime="09:00">9:00am</time>&ndash;<time datetime="13:00">1:00pm</time></div>
+          <div>
+            <h3 class="slot-title">Playbook 101: Moving from Chaos to Structured Incident Response</h3>
+            <p class="slot-speaker">Gyle Dela Cruz</p>
+            <div class="slot-meta"><span class="tag">Incident Response</span><span class="tag">Half day</span></div>
+            <p class="slot-desc">Capped at 24 places. Registration details coming soon.</p>
+          </div>
+        </article>
+      </section>
+
+      <p class="note">Questions? Email <a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a>.</p>
     </div>
   </main>
 
