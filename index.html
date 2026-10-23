@@ -814,6 +814,9 @@
     .sponsor-card--named .named-logo img { max-height: 88px; }
     .sponsor-card--named .named-logo--pair { gap: 20px; }
     .sponsor-card--named .named-logo--pair img { min-width: 0; }
+    /* One card holding several sponsors, each logo linking to its own site */
+    .sponsor-card--named .named-logo--wordmark { height: auto; width: 100%; }
+    .sponsor-card--named .named-logo--wordmark img { max-height: 28px; max-width: 90%; }
     .named-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -1507,6 +1510,9 @@
             <a href="https://onedotzero.com.au/" target="_blank" rel="noopener" class="sponsor-card" aria-label="One Dot Zero — Silver sponsor">
               <img src="assets/img/portfolio/sponsor-onedotzero.png" alt="One Dot Zero">
             </a>
+            <a href="https://www.upwind.io/" target="_blank" rel="noopener" class="sponsor-card" aria-label="Upwind — Silver sponsor">
+              <img src="assets/img/portfolio/sponsor-upwind.svg" alt="Upwind">
+            </a>
           </div>
         </div>
 
@@ -1530,10 +1536,11 @@
               <span class="named-logo"><img src="assets/img/portfolio/sponsor-cybercx.png" alt="CyberCX"></span>
               <span class="named-label">Locksport Village</span>
             </a>
-            <a href="https://localdrinksco.com.au/" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="Waves &amp; Caves and rok — Beverage sponsors">
-              <span class="named-logo named-logo--pair"><img src="assets/img/portfolio/sponsor-waves-caves.png" alt="Waves &amp; Caves"><img src="assets/img/portfolio/sponsor-rok.png" alt="rok"></span>
+            <div class="sponsor-card sponsor-card--named sponsor-card--multi" role="group" aria-label="Beverage sponsors">
+              <a href="https://localdrinksco.com.au/" target="_blank" rel="noopener" class="named-logo named-logo--pair" aria-label="Waves &amp; Caves and rok — Beverage sponsors"><img src="assets/img/portfolio/sponsor-waves-caves.png" alt="Waves &amp; Caves"><img src="assets/img/portfolio/sponsor-rok.png" alt="rok"></a>
+              <a href="https://margaretriverroasting.com.au/" target="_blank" rel="noopener" class="named-logo named-logo--wordmark" aria-label="Margaret River Roasting Co — Beverage sponsor"><img src="assets/img/portfolio/sponsor-mrrc.png" alt="Margaret River Roasting Co"></a>
               <span class="named-label">Beverage Sponsors</span>
-            </a>
+            </div>
           </div>
         </div>
 
