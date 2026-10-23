@@ -121,7 +121,8 @@
     .day-jump a:hover, .day-jump a:focus-visible { border-color: var(--yellow); color: var(--white); }
     a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
     .schedule { max-width: var(--container); margin: 0 auto; padding: 0 28px 96px; flex: 1; width: 100%; }
-    .day { padding-top: 64px; scroll-margin-top: 64px; }
+    .day, .slot--talk { scroll-margin-top: 84px; }
+    .day { padding-top: 64px; }
     .day-head {
       display: grid; grid-template-columns: 120px 1fr; gap: 0 32px; align-items: end;
       padding-bottom: 20px; border-bottom: 3px solid var(--yellow); margin-bottom: 8px;
@@ -139,8 +140,47 @@
     .slot-title { font-size: 1.1875rem; font-weight: 700; line-height: 1.35; letter-spacing: -0.015em; max-width: 52ch; }
     .slot-speaker { color: var(--yellow); font-weight: 600; margin-top: 6px; }
     .slot-meta { color: rgba(255,255,255,0.5); font-size: 0.875rem; margin-top: 2px; }
-    .slot-bio { color: rgba(255,255,255,0.65); font-size: 0.9375rem; line-height: 1.7; margin-top: 12px; max-width: 68ch; }
-    .slot-photo { width: 100%; max-width: 520px; height: auto; border-radius: var(--r); margin-top: 18px; }
+    /* Talk details: every talk slot is a <details> that expands to abstract, bio and headshot.
+       See CLAUDE.md before changing the schedule. */
+    .talk-summary { list-style: none; cursor: pointer; border-radius: var(--r); }
+    .talk-summary::-webkit-details-marker { display: none; }
+    .talk-summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 6px; }
+    .talk-toggle {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+      font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); transition: color 0.2s;
+    }
+    .talk-toggle::before {
+      content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+      transform: rotate(-45deg); transition: transform 0.2s; margin-right: 2px;
+    }
+    .talk-summary:hover .talk-toggle, .talk[open] .talk-toggle { color: var(--yellow); }
+    .talk[open] .talk-toggle::before { transform: rotate(45deg); }
+    .talk-toggle-close, .talk[open] .talk-toggle-open { display: none; }
+    .talk[open] .talk-toggle-close { display: inline; }
+    .talk-summary:hover .slot-title { color: var(--yellow); }
+    .slot-title { transition: color 0.2s; }
+    .talk-detail { padding-top: 20px; max-width: 68ch; }
+    .talk-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin: 8px 0 10px;
+    }
+    .talk-label ~ .talk-label { margin-top: 28px; }
+    .talk-abstract, .speaker-bio { color: rgba(255,255,255,0.75); font-size: 0.9375rem; line-height: 1.7; }
+    .talk-abstract + .talk-abstract, .speaker-bio + .speaker-bio { margin-top: 12px; }
+    .talk-abstract--pending { color: rgba(255,255,255,0.5); font-style: italic; }
+    .talk-photo { width: 100%; max-width: 520px; height: auto; border-radius: var(--r); margin-top: 18px; display: block; }
+    .speaker { display: grid; grid-template-columns: 96px 1fr; gap: 0 20px; align-items: start; }
+    .speaker + .speaker { margin-top: 24px; }
+    .speaker--nophoto { grid-template-columns: 1fr; }
+    .speaker-photo { width: 96px; height: 96px; object-fit: cover; border-radius: 50%; background: rgba(255,255,255,0.06); }
+    .speaker-name { font-weight: 700; margin-bottom: 6px; }
+    @media (max-width: 640px) {
+      .speaker { grid-template-columns: 72px 1fr; gap: 0 14px; }
+      .speaker--nophoto { grid-template-columns: 1fr; }
+      .speaker-photo { width: 72px; height: 72px; }
+      .day, .slot--talk { scroll-margin-top: 140px; }
+    }
     .slot--break { padding: 14px 0; }
     .slot--break .slot-time { font-size: 0.9375rem; color: rgba(255,255,255,0.55); }
     .slot--break .slot-time span { font-size: 0.875rem; }
@@ -221,81 +261,221 @@
           <time class="slot-time">09:00<span>–09:20</span></time>
           <div class="slot-body"><p class="slot-title">Welcome and opening</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="brendan-scarvell">
           <time class="slot-time">09:20<span>–10:05</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">AC/DC/RCE: From Bluetooth to Contactor</h3>
-            <p class="slot-speaker">Brendan Scarvell</p>
-            <p class="slot-meta">Hardware hacking</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">AC/DC/RCE: From Bluetooth to Contactor</h3>
+              <p class="slot-speaker">Brendan Scarvell</p>
+              <p class="slot-meta">Hardware hacking</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract talk-abstract--pending">Abstract coming soon.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/brendan-scarvell.jpg" width="480" height="480" loading="lazy" alt="Headshot of Brendan Scarvell">
+                <div class="speaker-text">
+                <p class="speaker-name">Brendan Scarvell</p>
+                <p class="speaker-bio">Brendan is a security researcher and co-founder of Signal 11, with a background spanning web application, network, hardware, and embedded device security. His work focuses on finding and exploiting vulnerabilities in real-world systems, with a particular interest in connected devices and the security risks created when consumer and business infrastructure overlap.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="george-coldham">
           <time class="slot-time">10:10<span>–10:40</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">I Built a Tiny Passkey Authenticator, Then Had to Explain Why You Shouldn’t Trust It</h3>
-            <p class="slot-speaker">George Coldham</p>
-            <p class="slot-meta">Identity and hardware security</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">I Built a Tiny Passkey Authenticator, Then Had to Explain Why You Shouldn’t Trust It</h3>
+              <p class="slot-speaker">George Coldham</p>
+              <p class="slot-meta">Identity and hardware security</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">Passkeys promise a cleaner future: no shared secrets, less phishing, and fewer humans being blamed for typing passwords into convincing nonsense. But what actually makes a passkey secure?</p>
+                <p class="talk-abstract">In this talk, I will build a small, portable FIDO2-style authenticator using cheap microcontroller hardware and use it to explain how passkeys work under the covers. We will walk through WebAuthn, CTAP2, relying parties, user presence, user verification, discoverable credentials, and origin binding.</p>
+                <p class="talk-abstract">The goal is not to pretend that a hobby device is a production-ready security key. It absolutely is not. That is the interesting part.</p>
+                <p class="talk-abstract">A working authenticator is not automatically a trustworthy authenticator. Once the demo works, we will examine the places trust still has to live: private key storage, firmware integrity, physical access, supply chain, attestation, recovery, enterprise policy, and the difference between “phishing resistant” and “magically secure”.</p>
+                <p class="talk-abstract">Attendees will leave with a practical mental model for passkeys, a better understanding of why they resist phishing, and a sharper sense of where the remaining security boundaries sit. This is a talk about building something small to understand something important.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/george-coldham.jpg" width="480" height="480" loading="lazy" alt="Headshot of George Coldham">
+                <div class="speaker-text">
+                <p class="speaker-name">George Coldham</p>
+                <p class="speaker-bio">George Coldham is a Cloud Solution Architect in Security at Microsoft, based in Perth, Western Australia. He works with organisations on cloud security, identity, Zero Trust, and practical security architecture.</p>
+                <p class="speaker-bio">George is also an organiser of the Perth Microsoft Security Meetup and Global Security Bootcamp Perth, and regularly speaks about security topics that sit between enterprise reality and hands-on experimentation. His recent work has focused on passkeys, phishing resistance, browser security, agentic systems, and how security controls actually behave once humans and legacy assumptions get involved.</p>
+                <p class="speaker-bio">He enjoys turning abstract security ideas into practical demonstrations, preferably with small devices, live demos, and just enough questionable hardware decisions to make the lessons memorable.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">10:40<span>–11:00</span></time>
           <div class="slot-body"><p class="slot-title">Morning tea</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="zoltan-madarassy-alex-brown">
           <time class="slot-time">11:00<span>–11:45</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Go Foot, Meet Gun: Auditing the Go Ecosystem for Its Sharpest Edges</h3>
-            <p class="slot-speaker">Zoltan Madarassy &amp; Alex Brown (elttam)</p>
-            <p class="slot-meta">Code review</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Go Foot, Meet Gun: Auditing the Go Ecosystem for Its Sharpest Edges</h3>
+              <p class="slot-speaker">Zoltan Madarassy &amp; Alex Brown (elttam)</p>
+              <p class="slot-meta">Code review</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">Go is pretty safe by default — mostly — which is exactly why the subtler problems go unnoticed. This talk picks up where our two-part Golang code review notes blog posts left off, hunting for the footguns that slip past code review, the compiler, and your linter alike. We’ll walk through representative examples from each part of the blog series — such as ReverseProxy dropping auth headers when an attacker sets the right Connection value, and silent integer overflows that only misbehave on certain architectures — before turning to the broader set of standard-library and web-layer pitfalls the rules cover.</p>
+                <p class="talk-abstract">We will then talk about how we used the Semgrep rules made during this research across a large slice of the most popular open-source Go projects on GitHub — the libraries and infrastructure much of the software supply chain quietly depends on. You’ll hear how the rules were written and tuned to survive real codebases, which footguns turned out to be widespread versus genuinely rare, and what that says about the gap between the language getting safer and anyone actually adopting the safer patterns. You’ll leave with the rules, the method to run them against your own dependencies, and a sharper eye for the Go patterns worth auditing by hand.</p>
+              <h4 class="talk-label">Speakers</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/zoltan-madarassy.jpg" width="480" height="480" loading="lazy" alt="Headshot of Zoltan Madarassy">
+                <div class="speaker-text">
+                <p class="speaker-name">Zoltan Madarassy</p>
+                <p class="speaker-bio">Zoltan is a Principal Security Consultant at elttam with 15 years of experience. He enjoys auditing complex products and loves going down rabbit holes, hunting for the weirdnesses and quirks of languages and frameworks.</p>
+                </div>
+              </div>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/alex-brown.jpg" width="480" height="480" loading="lazy" alt="Headshot of Alex Brown">
+                <div class="speaker-text">
+                <p class="speaker-name">Alex Brown</p>
+                <p class="speaker-bio">Alex Brown is a Senior Security Consultant at elttam who specialises in code-assisted security assessments. He loves finding weird quirks within languages and frameworks that can be leveraged to exploit novel and interesting vulnerabilities in applications. Alex is also an organiser of DownUnderCTF, the largest Australian CTF event, where he creates fun and interesting challenges that boggle competitors' minds. His recent research into database query issues beyond the well-known injection vulnerability classes has uncovered previously overlooked vulnerabilities, culminating in his work on the ORM Leaks vulnerability class. He presented this research at Black Hat EU 2025, and his article “ORM Leaking More Than You Joined For” was ranked 2nd in PortSwigger’s Top 10 Web Hacking Techniques of 2025.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="chris-elliott">
           <time class="slot-time">11:50<span>–12:20</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Springing Cats Together: Chaining Intended Behaviours into RCE</h3>
-            <p class="slot-speaker">Chris Elliott</p>
-            <p class="slot-meta">Red teaming and exploitation</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Springing Cats Together: Chaining Intended Behaviours into RCE</h3>
+              <p class="slot-speaker">Chris Elliott</p>
+              <p class="slot-meta">Red teaming and exploitation</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">You land on a Spring Boot Admin console managing hundreds of containers. The environment is heavily restricted: there is no file upload functionality, no writable web root, no log poisoning opportunities, and zero usable CVEs. So, how do you get a shell?</p>
+                <p class="talk-abstract">This technical walkthrough dives deep into the internals of Java Spring and Tomcat to explore what happens when you are forced to rely entirely on first-principles thinking. Instead of hunting for traditional memory corruption bugs, this talk breaks down how these servers operate by design.</p>
+                <p class="talk-abstract">By dissecting a highly predictable behavior in Tomcat’s internal mechanics and chaining it with exposed Jolokia JMX endpoints, we will explore how to turn expected server state into exploit primitives. Join this session to see how a perfectly timed race condition can weave intended features together into a reliable path for Remote Code Execution.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Chris Elliott</p>
+                <p class="speaker-bio">Chris is a Principal Red Teamer who, when not chaining Java misconfigurations together, is usually 3D printing something, tinkering with a Falcon ute that has done far too many kilometres, or fixing a lawn mower he found on the side of the road.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">12:20<span>–13:20</span></time>
           <div class="slot-body"><p class="slot-title">Lunch</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="alexander-wilczek">
           <time class="slot-time">13:20<span>–13:50</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Dumpster Diving for AI Agent Data Leaks</h3>
-            <p class="slot-speaker">Alexander Wilczek</p>
-            <p class="slot-meta">AI data leaks</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Dumpster Diving for AI Agent Data Leaks</h3>
+              <p class="slot-speaker">Alexander Wilczek</p>
+              <p class="slot-meta">AI data leaks</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">OpenClaw is the most popular AI agent framework of the year, with 390,000 GitHub stars. Install it, hand it your API keys, OAuth tokens, database credentials and private keys, and a single agent will run your email, calendars, shells, cloud accounts, messaging and payment tools for you. That is the appeal, and that is the problem. These agents only work well when they are over-privileged, so users grant everything and least privilege quietly disappears. Adoption was viral. Security was an afterthought.</p>
+                <p class="talk-abstract">Early 2026 showed what that costs. ClawHavoc pushed over a thousand malicious skills into the OpenClaw marketplace, and an exposed Moltbook database leaked roughly 1.5 million API keys. The response focused on scanning skills before publication. Nobody was asking where the stolen data was ending up, so I went looking. To date I’ve identified close to 3,000 leaked secrets across nearly 1,400 breaches.</p>
+                <p class="talk-abstract">The biggest pattern is OpenClaw leaking itself: Firebase and GCP keys embedded in agent JSON configs, gateway tokens committed as environment variables, session logs pushed to version control with auth tokens still intact, and SOUL.md personality files exposing the agent’s system prompt with credentials baked straight in. And because an agent never leaks just the AI parts of an .env file, everything else comes with it: AWS IAM keys, live Stripe keys, GitHub PATs, database connection strings, SSH private keys. On the exfil side I’ll cover Telegram bot exfiltration with the bot token embedded in the skill, a long tail of drop services, and hardcoded C2 ranges.</p>
+                <p class="talk-abstract">Once the find rate held up I built BreachClaw, a free live hunter anyone can use to check their own exposure by email or by SHA-256 hashed secret. I’ll walk through what it has found so far, which types of keys leak most, and run a short live demo.</p>
+                <p class="talk-abstract">I’ll close on reinstating least privilege. Agents need broad access to be useful, for now, so the practical move is to automate the things where a breach wouldn’t be catastrophic, treat every privilege you grant as a breach waiting to happen, stick to official skills, rotate credentials, and monitor the output side so you find out when something leaks rather than when someone uses it.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/alexander-wilczek.jpg" width="480" height="480" loading="lazy" alt="Headshot of Alexander Wilczek">
+                <div class="speaker-text">
+                <p class="speaker-name">Alexander Wilczek</p>
+                <p class="speaker-bio">I’m a digital nomad fighting cybercrime. I’ve been travelling Australia (and the world) full time for over three years in my Land Cruiser and hacking the planet from the most pristine beaches to the most remote parts of the outback. I specialise in dark web, data leaks and cybercrime. I’ve presented my research at DEF CON and multiple BSides events. I’m also the proud founder of Rivanorth.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--tba">
           <time class="slot-time">13:55<span>–14:25</span></time>
           <div class="slot-body"><p class="slot-title">Talk to be announced</p><p class="slot-meta">We’ll confirm this session shortly.</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="danielle-rosenfeld-lovell">
           <time class="slot-time">14:30<span>–14:55</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">The Ghosts of Protocols Past: What Path Dependency Teaches Us About Cyber Security</h3>
-            <p class="slot-speaker">Danielle Rosenfeld-Lovell</p>
-            <p class="slot-meta">History and critical reasoning</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">The Ghosts of Protocols Past: What Path Dependency Teaches Us About Cyber Security</h3>
+              <p class="slot-speaker">Danielle Rosenfeld-Lovell</p>
+              <p class="slot-meta">History and critical reasoning</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">I will be introducing the concept of Path Dependence. In a technology setting. This is broadly the idea that design decisions made in specific contexts that constrain the decisions that can be made now. I will argue that Path Dependence can be useful as lens for understanding how legacy technologies cause many of the security issues of today.</p>
+                <p class="talk-abstract">I will first define the concept of Path Dependence and then explore Path Dependence in practice using 3 short case studies in network protocol design. I expect to focus on pitching the content at a level that the non-technical members of the audience can understand. I will use the examples of Spanning Tree Protocol, Border Gateway Protocol, and Address Resolution Protocol. Each case study will roughly follow the format; “What problem did the protocol solve for”, “What assumptions were made?”, “What problems did it introduce/how did we address them?”.</p>
+                <p class="talk-abstract">The talk will conclude with a list of questions we can use to identify the assumptions that are baked into technology. For example, “What about this technology worked when it was created that doesn’t make sense now?” and “In what unpredictable ways has the world changed to make this technology risky/ineffective?”. Finally, I will suggest that these assumptions can be used to formulate ideas for better compensating controls.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Danielle Rosenfeld-Lovell</p>
+                <p class="speaker-bio">Danielle has worn many professional hats over her working life including customer service, telemarketing phone operator, dental nurse, research assistant, registered nurse in paediatrics but more recently and relevantly penetration tester. She tends to enjoy working on problems with an application security lean and enjoys thinking about the intersection of technology, history, and ethics. In her spare time she struggles to keep up too many hobbies, including baking, hiking, knitting, singing in choirs, and being an overinvolved pet owner.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="angus">
           <time class="slot-time">15:00<span>–15:45</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Viral Vulnerabilities: Unpacking Copy.Fail and related Linux Kernel bugs</h3>
-            <p class="slot-speaker">Angus (InfoSect)</p>
-            <p class="slot-meta">Linux kernel and vuln research</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Viral Vulnerabilities: Unpacking Copy.Fail and related Linux Kernel bugs</h3>
+              <p class="slot-speaker">Angus (InfoSect)</p>
+              <p class="slot-meta">Linux kernel and vuln research</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">Remember Copy.Fail (CVE-2026-31431), the Linux Kernel vulnerability that went viral earlier this year? If you missed it, here’s all you need to know: it was a local privilege escalation bug found by researchers at Theori; for the past 10 years, almost every kernel from every major distro was vulnerable; the bug was exploitable with a 732-byte Python script with 100% reliability; and over the weeks following disclosure, numerous variants were found. Of course, online discourse was fuelled by the fact that it was one of the first critical Linux kernel bugs found using AI.</p>
+                <p class="talk-abstract">In this talk, I’ll break down what the Copy.Fail bug is, how it was exploited, discuss the variant vulnerabilities, and give my thoughts on the future of this bug class in general. The hype cycle may have now passed, but I think it’s still a very interesting bug, and taking the time to understand it properly can lead to interesting insights.</p>
+                <p class="talk-abstract">Never looked at the Linux kernel before? Don’t worry – there is absolutely no code in this talk. I’ll be explaining all of the core concepts from the ground up, and every slide is filled with hand-drawn diagrams to help you understand what’s going on.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Angus (InfoSect)</p>
+                <p class="speaker-bio">Angus is a vulnerability researcher at InfoSect. At work, he is known for falling down rabbit holes and giving talks with unnecessary amounts of detail. Outside of work, Angus enjoys learning new (usually useless) skills, attempting (and forever failing) to win CTFs, cooking (hopefully) tasty food, and is known to be overly competitive when playing (video|board|role-playing|war)games with his friends.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="cole-cornford">
           <time class="slot-time">15:50<span>–16:20</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">AI Security Q&amp;A with Cole Cornford</h3>
-            <p class="slot-speaker">Cole Cornford</p>
-            <p class="slot-meta">AI security</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">AI Security Q&amp;A with Cole Cornford</h3>
+              <p class="slot-speaker">Cole Cornford</p>
+              <p class="slot-meta">AI security</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">A short presentation to set the stage on AI security, followed by audience Q&amp;A.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Cole Cornford</p>
+                <p class="speaker-bio">Cole has led product security functions since 2015 across government, finance, and tech businesses. He founded Galah Cyber in 2021 and has provided security consulting and advisory services since then. Recently his focus has been on helping establish awareness and sovereign capability around artificial intelligence. Cole is the father of two daughters who think “fluffy duck” is a more appropriate job title than “founding feather” due to bad bed hair.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">16:20<span>–16:30</span></time>
@@ -314,63 +494,163 @@
           <time class="slot-time">09:00<span>–09:15</span></time>
           <div class="slot-body"><p class="slot-title">Day 2 opening</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="rich-s">
           <time class="slot-time">09:15<span>–10:00</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Who is Igor Gilmutdinov? Using OSINT to uncover the people behind Russian bulletproof hosting providers</h3>
-            <p class="slot-speaker">Rich S</p>
-            <p class="slot-meta">OSINT and threat intelligence</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Who is Igor Gilmutdinov? Using OSINT to uncover the people behind Russian bulletproof hosting providers</h3>
+              <p class="slot-speaker">Rich S</p>
+              <p class="slot-meta">OSINT and threat intelligence</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">This presentation will dive into the murky world of corporate shell companies, tax havens and the lengths companies will go to, to hide their true identities from their customers and appear legit. During this investigation the same name would continue to appear: Igor Gilmutdinov… but who is he?</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/rich-s.jpg" width="480" height="480" loading="lazy" alt="Headshot of Rich S">
+                <div class="speaker-text">
+                <p class="speaker-name">Rich S</p>
+                <p class="speaker-bio">Rich is an OSINT analyst from Perth who has been doing OSINT since before it became a thing.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="matt-jones">
           <time class="slot-time">10:05<span>–10:50</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Nobody’s Protocol: Attacking TACACS+ in 2026</h3>
-            <p class="slot-speaker">Matt Jones (elttam)</p>
-            <p class="slot-meta">Network and vuln research</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Nobody’s Protocol: Attacking TACACS+ in 2026</h3>
+              <p class="slot-speaker">Matt Jones (elttam)</p>
+              <p class="slot-meta">Network and vuln research</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">TACACS+ is 42 years old and almost nobody thinks about it, yet it is still how most telcos, ISPs and large enterprises authenticate admin logins across every router, switch and firewall they own. Last year’s CISA advisory on Salt Typhoon has them harvesting credentials straight off TACACS+ servers. This talk covers a pre-authentication format string vulnerability that sat for 25 years in the daemon behind a large share of those deployments, giving code execution as root, along with the trick that recovers the shared key first so you can get there without credentials.</p>
+                <p class="talk-abstract">The rest is a case study in how software security works for critical services in 2026. The bug class was solved in 2001 and compilers have caught it for 20 years, none of which helps when nobody owns the code. Getting a fix out took several months of disclosure, across an archived project at Meta, a vendor who wasn’t answering, and Cisco PSIRT confirming the code hadn’t been theirs for decades.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/matt-jones.jpg" width="480" height="480" loading="lazy" alt="Headshot of Matt Jones">
+                <div class="speaker-text">
+                <p class="speaker-name">Matt Jones</p>
+                <p class="speaker-bio">Matt Jones is a co-founder of elttam.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">10:50<span>–11:10</span></time>
           <div class="slot-body"><p class="slot-title">Morning tea</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="bruce-large">
           <time class="slot-time">11:10<span>–11:55</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">Purple Teaming yo ICS</h3>
-            <p class="slot-speaker">Bruce ‘BFL’ Large</p>
-            <p class="slot-meta">Purple teaming and OT</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">Purple Teaming yo ICS</h3>
+              <p class="slot-speaker">Bruce ‘BFL’ Large</p>
+              <p class="slot-meta">Purple teaming and OT</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">In this presentation Bruce will outline the case for why Critical Infrastructure operators need to do purple teaming to ensure they are defensibly managing cyber security risks for their Operational Technology (OT).</p>
+                <p class="talk-abstract">This presentation will start with a primer on purple teaming and walk through how critical asset operators should develop purple team assessments for their OT systems. This presentation will discuss methods to gather relevant Cyber Threat Intelligence to inform their assessments. Critically for asset operators this presentation will discuss why purple teaming needs to happen in a representative test lab environment initially to give teams confidence in their assessments. The presentation will discuss useful tools and techniques to support asset operators plan and execute their purple team assessment and finally Bruce will discuss how he built his home lab to support this presentation.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Bruce ‘BFL’ Large</p>
+                <p class="speaker-bio">Bruce has 20 years experience working with IT and Operational Technology in network, telecommunications and system engineering roles. Bruce has worked in Electricity Generation &amp; Transmission, Railway, Aviation, Emergency Services and Consulting industries. Bruce is the Founder and Principal Cyber Security Architect at BLARGE.</p>
+                <p class="speaker-bio">He is a Chartered Professional Engineer, Registered Professional Engineer of Queensland, Foundation Chartered SABSA Architect (SCF). He is an ISA/IEC 62443 Expert and has attended Industrial Control Systems (ICS) Cyber Security training at QUT. Bruce holds the GIAC GICSP, GRID, GSOM and CCTI certifications.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">11:55<span>–12:55</span></time>
           <div class="slot-body"><p class="slot-title">Lunch</p></div>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="adam-brickhill">
           <time class="slot-time">12:55<span>–13:35</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">A Leukocyte For Supply Chain Attacks</h3>
-            <p class="slot-speaker">Adam Brickhill</p>
-            <p class="slot-meta">Tooling</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">A Leukocyte For Supply Chain Attacks</h3>
+              <p class="slot-speaker">Adam Brickhill</p>
+              <p class="slot-meta">Tooling</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">Research and development into preventing supply chain attacks for all developers, which resulted in creating a tool that can prevent the installation of likely poisoned packages.</p>
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/adam-brickhill.jpg" width="480" height="480" loading="lazy" alt="Headshot of Adam Brickhill">
+                <div class="speaker-text">
+                <p class="speaker-name">Adam Brickhill</p>
+                <p class="speaker-bio">Adam is a cybersecurity graduate from Edith Cowan University who found his passion at the intersection of security and software development. After completing his internship at Seamless Intelligence, he joined the team full-time, spending the last five years building bespoke tools that assist the Security Operations Centre’s daily operations.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="kumar-soorya-kaif-ahsan">
           <time class="slot-time">13:40<span>–14:20</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">The enemy within: running untrusted code through AI workloads</h3>
-            <p class="slot-speaker">Kumar Soorya &amp; Kaif Ahsan</p>
-            <p class="slot-meta">AI security</p>
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">The enemy within: running untrusted code through AI workloads</h3>
+              <p class="slot-speaker">Kumar Soorya &amp; Kaif Ahsan</p>
+              <p class="slot-meta">AI security</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">AI agents are no longer just generating text; they’re writing code, executing it, installing dependencies, calling APIs, and operating inside your infrastructure with varying degrees of autonomy. Products like coding assistants, autonomous dev agents, and tool-calling LLMs need to run untrusted, dynamically generated code as a core part of their functionality.</p>
+                <p class="talk-abstract">The AI workloads being non-deterministic means the user can manipulate the underlying system more easily and achieve a greater impact. Hence, it demands a fundamentally different approach to isolation.</p>
+                <p class="talk-abstract">And when we think of isolation, the first thing that comes up is sandboxing. But the word “sandbox” is doing a dangerous amount of heavy lifting, and it hides an enormous amount of complexity. How does one properly “sandbox” an AI-native workload? What are the common trade-offs, mistakes and architectural best practices?</p>
+                <p class="talk-abstract">This talk is a practitioner’s guide to getting sandboxing right for AI workloads, built from our experience building &amp; securing AI products at Atlassian.</p>
+                <p class="talk-abstract">We’ll do a practical walkthrough of building a AI sandbox: what are the major isolation layers, explain what the trust boundary actually is, showcase how we evaluated and selected solutions at each layer for our AI products, and then drive the point home with mock vulnerabilities representative of real bugs we’ve seen in the industry, while building our own products.</p>
+                <p class="talk-abstract">You’ll see how a security &amp; engineering team actually reasons through the complex challenges of sandboxing a non-deterministic workload. We’ll share the trade-offs we hit, the assumptions that broke, the actual vulnerabilities they caused, and the architectural decisions that survived contact with reality. So gather along and come hear our tale.</p>
+              <h4 class="talk-label">Speakers</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Kumar Soorya</p>
+                <p class="speaker-bio">Kumar Soorya is a Product Security Engineer, where he works with his team to aid internal customers with evaluating and providing guidance from an infrastructure and platform security standpoint. Prior to his current role, Soorya has worked as a security engineer for AWS assisting with incident response for internal services as a part of the shared responsibility model. Soorya is passionate about making knowledge about security accessible to security leaders, practitioners and students. He is one of the co-hosts of the Everything Cyber podcast, where he shares hands-on and conversational videos on tech and cybersecurity.</p>
+                </div>
+              </div>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">Kaif Ahsan</p>
+                <p class="speaker-bio">Kaif Ahsan is a coder by passion and a hacker by profession. He started his journey in tech as a Software Engineer but soon fell in love with the art of breaking software. His knowledge of development and cybersecurity has naturally led him to the Application Security space, where he currently works as a Product Security Engineer at Atlassian. Kaif is a big proponent of education and open access to knowledge. He regularly volunteers to run cybersecurity workshops at various universities as well as giving talks at local meet-ups and conferences. He is also the co-host of YT channel, Everything Cyber, where he shares hands-on and conversational videos on tech and cybersecurity. His videos target intermediate-level professionals and help them gain expertise through practical content.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
-        <li class="slot">
+        <li class="slot slot--talk" id="ps-sides">
           <time class="slot-time">14:25<span>–14:40</span></time>
-          <div class="slot-body">
-            <h3 class="slot-title">A Fool’s Paradise: AI vs Humans</h3>
-            <p class="slot-speaker">PS Sides: Zoe, Hugo, Binal &amp; Orin</p>
-            <p class="slot-meta">Social engineering and AI</p>
-            <p class="slot-bio">They’re four friends, aged 11 and 12, from a primary school in Perth. They’re curious, creative, and always up for trying something new. Like most kids their age, their interests stretch in all different directions &ndash; they’re even busy working together on their first movie. For the first time, they’re stepping onto a conference stage together, having chosen to challenge themselves by learning about cyber security. They might see things a little differently from the usual BSides Perth speaker, and that’s exactly the point: the digital world that you are designing, securing and building today is the one they’re growing up in, and so it’s a world where their views matter.</p>
-            <img class="slot-photo" src="assets/img/speakers/ps-sides.jpg" width="1040" height="780" loading="lazy" alt="The PS Sides team, Zoe, Hugo, Binal and Orin, standing with their arms raised in BSides Perth t-shirts">
-          </div>
+          <details class="talk">
+            <summary class="talk-summary">
+              <h3 class="slot-title">A Fool’s Paradise: AI vs Humans</h3>
+              <p class="slot-speaker">PS Sides: Zoe, Hugo, Binal &amp; Orin</p>
+              <p class="slot-meta">Social engineering and AI</p>
+              <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
+            </summary>
+            <div class="talk-detail">
+              <h4 class="talk-label">Abstract</h4>
+                <p class="talk-abstract">Fooling people through lies, scams, and manipulation are at the heart of many cyber attacks. A team of Year 6 (11 and 12 year old) students uncover what it means to be fooled, share our findings on fooling humans vs AI, and unpack the hypothesis that kids today are more likely to be fooled by technology than any generation previous. You’ll leave with an understanding of what we believe kids need to learn and some inspiration for future solutions.</p>
+              <img class="talk-photo" src="assets/img/speakers/ps-sides.jpg" width="1040" height="780" loading="lazy" alt="The PS Sides team, Zoe, Hugo, Binal and Orin, standing with their arms raised in BSides Perth t-shirts">
+              <h4 class="talk-label">Speaker</h4>
+              <div class="speaker speaker--nophoto">
+                <div class="speaker-text">
+                <p class="speaker-name">PS Sides: Zoe, Hugo, Binal &amp; Orin</p>
+                <p class="speaker-bio">They’re four friends, aged 11 and 12, from a primary school in Perth. They’re curious, creative, and always up for trying something new. Like most kids their age, their interests stretch in all different directions – they’re even busy working together on their first movie. For the first time, they’re stepping onto a conference stage together, having chosen to challenge themselves by learning about cyber security. They might see things a little differently from the usual BSides Perth speaker, and that’s exactly the point: the digital world that you are designing, securing and building today is the one they’re growing up in, and so it’s a world where their views matter.</p>
+                </div>
+              </div>
+            </div>
+          </details>
         </li>
         <li class="slot slot--break">
           <time class="slot-time">14:40<span>–15:10</span></time>
@@ -396,7 +676,7 @@
         </div>
       </section>
 
-      <p class="note">Speaker bios and talk abstracts are on the way. Questions? Email <a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a>.</p>
+      <p class="note">Tap any talk for its abstract and speaker bio. Questions? Email <a href="mailto:info@bsidesperth.com.au">info@bsidesperth.com.au</a>.</p>
     </div>
   </main>
   <div class="footer-rule" aria-hidden="true"></div>
@@ -416,6 +696,20 @@
         toggle.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+      });
+    });
+    // Talk details: open the talk named in the URL (schedule.html#matt-jones) and keep the hash in sync.
+    function openFromHash() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var slot = id && document.getElementById(id);
+      var d = slot && slot.querySelector('details.talk');
+      if (d) { d.open = true; slot.scrollIntoView(); }
+    }
+    window.addEventListener('hashchange', openFromHash);
+    openFromHash();
+    document.querySelectorAll('details.talk').forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (d.open) history.replaceState(null, '', '#' + d.parentElement.id);
       });
     });
   </script>
