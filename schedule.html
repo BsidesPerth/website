@@ -168,6 +168,8 @@
     .talk-label ~ .talk-label { margin-top: 28px; }
     .talk-abstract, .speaker-bio { color: rgba(255,255,255,0.75); font-size: 0.9375rem; line-height: 1.7; }
     .talk-abstract + .talk-abstract, .speaker-bio + .speaker-bio { margin-top: 12px; }
+    .talk-link a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+    .talk-link a:hover { color: var(--yellow); }
     .talk-abstract--pending { color: rgba(255,255,255,0.5); font-style: italic; }
     .talk-photo { width: 100%; max-width: 520px; height: auto; border-radius: var(--r); margin-top: 18px; display: block; }
     .speaker { display: grid; grid-template-columns: 96px 1fr; gap: 0 20px; align-items: start; }
@@ -190,7 +192,10 @@
     .workshop { border: 1px solid var(--border-dark); border-radius: var(--r); padding: 28px; display: flex; flex-direction: column; }
     .workshop .slot-time { display: block; margin-bottom: 14px; }
     .workshop .slot-title { font-size: 1.25rem; }
-    .workshop .detail { color: rgba(255,255,255,0.65); font-size: 0.9375rem; margin-top: 14px; flex: 1; }
+    .workshop .detail { color: rgba(255,255,255,0.65); font-size: 0.9375rem; margin-top: 14px; }
+    .workshop .talk-label { margin-top: 24px; }
+    .workshop-list { list-style: disc; padding-left: 1.25em; color: rgba(255,255,255,0.75); font-size: 0.9375rem; line-height: 1.7; }
+    .workshop .speaker { max-width: 68ch; }
     .workshop .btn { margin-top: 22px; align-self: flex-start; }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -437,7 +442,7 @@
           <details class="talk">
             <summary class="talk-summary">
               <h3 class="slot-title">Viral Vulnerabilities: Unpacking Copy.Fail and related Linux Kernel bugs</h3>
-              <p class="slot-speaker">Angus (InfoSect)</p>
+              <p class="slot-speaker">Angus</p>
               <p class="slot-meta">Linux kernel and vuln research</p>
               <span class="talk-toggle"><span class="talk-toggle-open">Abstract and bio</span><span class="talk-toggle-close">Hide details</span></span>
             </summary>
@@ -447,9 +452,10 @@
                 <p class="talk-abstract">In this talk, I’ll break down what the Copy.Fail bug is, how it was exploited, discuss the variant vulnerabilities, and give my thoughts on the future of this bug class in general. The hype cycle may have now passed, but I think it’s still a very interesting bug, and taking the time to understand it properly can lead to interesting insights.</p>
                 <p class="talk-abstract">Never looked at the Linux kernel before? Don’t worry – there is absolutely no code in this talk. I’ll be explaining all of the core concepts from the ground up, and every slide is filled with hand-drawn diagrams to help you understand what’s going on.</p>
               <h4 class="talk-label">Speaker</h4>
-              <div class="speaker speaker--nophoto">
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/angus.jpg" width="480" height="480" loading="lazy" alt="Headshot of Angus">
                 <div class="speaker-text">
-                <p class="speaker-name">Angus (InfoSect)</p>
+                <p class="speaker-name">Angus</p>
                 <p class="speaker-bio">Angus is a vulnerability researcher at InfoSect. At work, he is known for falling down rabbit holes and giving talks with unnecessary amounts of detail. Outside of work, Angus enjoys learning new (usually useless) skills, attempting (and forever failing) to win CTFs, cooking (hopefully) tasty food, and is known to be overly competitive when playing (video|board|role-playing|war)games with his friends.</p>
                 </div>
               </div>
@@ -469,7 +475,8 @@
               <h4 class="talk-label">Abstract</h4>
                 <p class="talk-abstract">A short presentation to set the stage on AI security, followed by audience Q&amp;A.</p>
               <h4 class="talk-label">Speaker</h4>
-              <div class="speaker speaker--nophoto">
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/cole-cornford.jpg" width="480" height="480" loading="lazy" alt="Headshot of Cole Cornford">
                 <div class="speaker-text">
                 <p class="speaker-name">Cole Cornford</p>
                 <p class="speaker-bio">Cole has led product security functions since 2015 across government, finance, and tech businesses. He founded Galah Cyber in 2021 and has provided security consulting and advisory services since then. Recently his focus has been on helping establish awareness and sovereign capability around artificial intelligence. Cole is the father of two daughters who think “fluffy duck” is a more appropriate job title than “founding feather” due to bad bed hair.</p>
@@ -560,7 +567,8 @@
                 <p class="talk-abstract">In this presentation Bruce will outline the case for why Critical Infrastructure operators need to do purple teaming to ensure they are defensibly managing cyber security risks for their Operational Technology (OT).</p>
                 <p class="talk-abstract">This presentation will start with a primer on purple teaming and walk through how critical asset operators should develop purple team assessments for their OT systems. This presentation will discuss methods to gather relevant Cyber Threat Intelligence to inform their assessments. Critically for asset operators this presentation will discuss why purple teaming needs to happen in a representative test lab environment initially to give teams confidence in their assessments. The presentation will discuss useful tools and techniques to support asset operators plan and execute their purple team assessment and finally Bruce will discuss how he built his home lab to support this presentation.</p>
               <h4 class="talk-label">Speaker</h4>
-              <div class="speaker speaker--nophoto">
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/bruce-large.jpg" width="480" height="480" loading="lazy" alt="Headshot of Bruce ‘BFL’ Large">
                 <div class="speaker-text">
                 <p class="speaker-name">Bruce ‘BFL’ Large</p>
                 <p class="speaker-bio">Bruce has 20 years experience working with IT and Operational Technology in network, telecommunications and system engineering roles. Bruce has worked in Electricity Generation &amp; Transmission, Railway, Aviation, Emergency Services and Consulting industries. Bruce is the Founder and Principal Cyber Security Architect at BLARGE.</p>
@@ -586,12 +594,14 @@
             <div class="talk-detail">
               <h4 class="talk-label">Abstract</h4>
                 <p class="talk-abstract">Research and development into preventing supply chain attacks for all developers, which resulted in creating a tool that can prevent the installation of likely poisoned packages.</p>
+                <p class="talk-abstract talk-link">Tool: <a href="https://github.com/DerpyDinosaur/leukocyte" target="_blank" rel="noopener">github.com/DerpyDinosaur/leukocyte</a></p>
               <h4 class="talk-label">Speaker</h4>
               <div class="speaker">
                 <img class="speaker-photo" src="assets/img/speakers/adam-brickhill.jpg" width="480" height="480" loading="lazy" alt="Headshot of Adam Brickhill">
                 <div class="speaker-text">
                 <p class="speaker-name">Adam Brickhill</p>
                 <p class="speaker-bio">Adam is a cybersecurity graduate from Edith Cowan University who found his passion at the intersection of security and software development. After completing his internship at Seamless Intelligence, he joined the team full-time, spending the last five years building bespoke tools that assist the Security Operations Centre’s daily operations.</p>
+                <p class="speaker-bio talk-link">Website: <a href="https://lonetree.xyz" target="_blank" rel="noopener">lonetree.xyz</a></p>
                 </div>
               </div>
             </div>
@@ -615,13 +625,15 @@
                 <p class="talk-abstract">We’ll do a practical walkthrough of building a AI sandbox: what are the major isolation layers, explain what the trust boundary actually is, showcase how we evaluated and selected solutions at each layer for our AI products, and then drive the point home with mock vulnerabilities representative of real bugs we’ve seen in the industry, while building our own products.</p>
                 <p class="talk-abstract">You’ll see how a security &amp; engineering team actually reasons through the complex challenges of sandboxing a non-deterministic workload. We’ll share the trade-offs we hit, the assumptions that broke, the actual vulnerabilities they caused, and the architectural decisions that survived contact with reality. So gather along and come hear our tale.</p>
               <h4 class="talk-label">Speakers</h4>
-              <div class="speaker speaker--nophoto">
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/kumar-soorya.jpg" width="480" height="480" loading="lazy" alt="Headshot of Kumar Soorya">
                 <div class="speaker-text">
                 <p class="speaker-name">Kumar Soorya</p>
                 <p class="speaker-bio">Kumar Soorya is a Product Security Engineer, where he works with his team to aid internal customers with evaluating and providing guidance from an infrastructure and platform security standpoint. Prior to his current role, Soorya has worked as a security engineer for AWS assisting with incident response for internal services as a part of the shared responsibility model. Soorya is passionate about making knowledge about security accessible to security leaders, practitioners and students. He is one of the co-hosts of the Everything Cyber podcast, where he shares hands-on and conversational videos on tech and cybersecurity.</p>
                 </div>
               </div>
-              <div class="speaker speaker--nophoto">
+              <div class="speaker">
+                <img class="speaker-photo" src="assets/img/speakers/kaif-ahsan.jpg" width="480" height="480" loading="lazy" alt="Headshot of Kaif Ahsan">
                 <div class="speaker-text">
                 <p class="speaker-name">Kaif Ahsan</p>
                 <p class="speaker-bio">Kaif Ahsan is a coder by passion and a hacker by profession. He started his journey in tech as a Software Engineer but soon fell in love with the art of breaking software. His knowledge of development and cybersecurity has naturally led him to the Application Security space, where he currently works as a Product Security Engineer at Atlassian. Kaif is a big proponent of education and open access to knowledge. He regularly volunteers to run cybersecurity workshops at various universities as well as giving talks at local meet-ups and conferences. He is also the co-host of YT channel, Everything Cyber, where he shares hands-on and conversational videos on tech and cybersecurity. His videos target intermediate-level professionals and help them gain expertise through practical content.</p>
@@ -672,6 +684,32 @@
             <h3 class="slot-title">The Art of Practical Threat Modelling</h3>
             <p class="slot-speaker">Ralph Andalis</p>
             <p class="detail">A full-day, hands-on training in practical application threat modelling. Separate paid ticket, limited to 30 places. You don’t need a BSides ticket to attend.</p>
+            <h4 class="talk-label">Price</h4>
+            <ul class="workshop-list">
+              <li>$120 AUD + GST (early bird price, limited)</li>
+              <li>$150 AUD + GST (regular admission)</li>
+            </ul>
+            <h4 class="talk-label">What’s included</h4>
+            <ul class="workshop-list">
+              <li>8-hours full day hands-on training</li>
+              <li>Training materials (slides and practice materials)</li>
+            </ul>
+            <h4 class="talk-label">Prerequisites</h4>
+            <ul class="workshop-list">
+              <li>Know the Threat Modelling basics</li>
+              <li>Understand security issues and threats on software systems, applications and networks</li>
+              <li>Ideally knows at least STRIDE &amp; DREAD and its basics</li>
+            </ul>
+            <h4 class="talk-label">Trainer</h4>
+            <div class="speaker">
+              <img class="speaker-photo" src="assets/img/speakers/ralph-andalis.jpg" width="480" height="480" loading="lazy" alt="Headshot of Ralph Andalis">
+              <div class="speaker-text">
+              <p class="speaker-name">Ralph Andalis</p>
+              <p class="speaker-bio">Ralph is the Director of Security &amp; Founder of Gridlock Security (GridlockSec), a company that focuses on cybersecurity consulting services. He has 11 years experience in the industry as a Security Consultant/Pentester/Security Researcher. His expertise is mainly Web, Mobile, and Network Pentesting, Threat Modelling, Security Architecture Review, and Security Design Reviews. He recently worked at Microsoft as a Senior Security Engineer handling solely the product security of his assigned product for all his 130+ Software Engineers.</p>
+              <p class="speaker-bio">He is also a major active contributor and a member of the working group for the OWASP Application Security Verification Standard (ASVS) project, making the standard better for fellow pentesters and developers alike. Recently, he started helping on OWASP Artificial Intelligence Security Verification Standard (AISVS) to help address the AI-security needs of the global community and open-source standards.</p>
+              <p class="speaker-bio">He trained attendees at BSides Vancouver 2025, BSides Orlando 2025, BSides Luxembourg 2026, OWASP AppSec New Zealand Days 2026 for similar earlier versions of Threat Modelling Trainings which had been well received. He has presented his talk as well on OWASP AppSec Pacific Northwest conference (PNW) 2024 in Vancouver, BC Canada and HackStop Cybersecurity Summit 2024 in Ljubljana, Slovenia.</p>
+              </div>
+            </div>
             <a class="btn" href="https://events.humanitix.com/the-art-of-practical-threat-modelling-training-bsides-perth" target="_blank" rel="noopener">Book a workshop place</a>
           </article>
         </div>
