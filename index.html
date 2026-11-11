@@ -817,13 +817,15 @@
     /* One card holding several sponsors, each logo linking to its own site */
     .sponsor-card--named .named-logo--wordmark { height: auto; width: 100%; }
     .sponsor-card--named .named-logo--wordmark img { max-height: 28px; max-width: 90%; }
-    /* Sponsor shown by name until we have their logo file */
+    /* Yakiba's logo is a text wordmark (lowercase name + blue full stop), as in their emails */
     .sponsor-card--named .named-logo--text {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: #111827;
     }
+    .named-logo--text .yakiba-dot { color: #2E7DF6; }
     .named-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -1550,7 +1552,7 @@
               <span class="named-label">Beverage Sponsors</span>
             </div>
             <a href="https://yakiba.ai/c/bsides-perth" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="Yakiba — Sponsor">
-              <span class="named-logo named-logo--text">Yakiba</span>
+              <span class="named-logo named-logo--text">yakiba<span class="yakiba-dot">.</span></span>
               <span class="named-label">Sponsor</span>
             </a>
           </div>
