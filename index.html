@@ -817,6 +817,13 @@
     /* One card holding several sponsors, each logo linking to its own site */
     .sponsor-card--named .named-logo--wordmark { height: auto; width: 100%; }
     .sponsor-card--named .named-logo--wordmark img { max-height: 28px; max-width: 90%; }
+    /* Sponsor shown by name until we have their logo file */
+    .sponsor-card--named .named-logo--text {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
     .named-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -1542,6 +1549,10 @@
               <a href="https://margaretriverroasting.com.au/" target="_blank" rel="noopener" class="named-logo named-logo--wordmark" aria-label="Margaret River Roasting Co — Beverage sponsor"><img src="assets/img/portfolio/sponsor-mrrc.png" alt="Margaret River Roasting Co"></a>
               <span class="named-label">Beverage Sponsors</span>
             </div>
+            <a href="https://yakiba.ai/c/bsides-perth" target="_blank" rel="noopener" class="sponsor-card sponsor-card--named" aria-label="Yakiba — Sponsor">
+              <span class="named-logo named-logo--text">Yakiba</span>
+              <span class="named-label">Sponsor</span>
+            </a>
           </div>
         </div>
 
